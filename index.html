@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rivaldi Syaputra- Network Engineer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght=700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Smooth scroll for navigation */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Custom Keyframes for Animations (lebih presisi daripada bawaan Tailwind untuk beberapa kasus) */
+        @keyframes fadeInScaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .animate-fadeInScaleUp {
+            animation: fadeInScaleUp 0.8s ease-out forwards;
+        }
+        .animate-fadeInUp {
+            animation: fadeInUp 0.7s ease-out forwards;
+        }
+        /* Untuk elemen yang akan di-animate dengan Intersection Observer */
+        .animated-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .animated-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover effect for social media icons */
+        .social-icon-hover {
+            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+        .social-icon-hover:hover {
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50"> 
+
+    <header class="bg-gray-900 text-white p-1 shadow-xl sticky top-0 z-50">
+        <nav class="container mx-auto flex justify-between items-center py-2">
+            <a href="#hero" class="text-2xl md:text-3xl font-extrabold tracking-wide hover:text-blue-400 transition-colors duration-300">Rivaldi Syaputra</a>
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#about" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">About</a>
+                <a href="#skills" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Skills</a>
+                <a href="#projects" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Projects</a>
+                <a href="#certificates" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Certificates</a>
+                <a href="#contact" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Contact</a>
+                <a href="./public/pdf/CV rivaldi ATS.pdf" target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm">See CV</a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 transition-colors">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 mt-2 rounded-lg shadow-lg py-2">
+            <a href="#about" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 transition-colors text-base">About</a>
+            <a href="#skills" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 transition-colors text-base">Skills</a>
+            <a href="#projects" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">Projects</a>
+            <a href="#certificates" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">Certificates</a>
+            <a href="#contact" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">Contact</a>
+            <a href="LINK_BERKAS_CV_ANDA" target="_blank" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">See CV</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero" class="relative flex items-center justify-center min-h-[100vh] bg-gradient-to-br from-gray-900 to-gray-700 text-center text-white overflow-hidden py-16"> 
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./images/hero-bg.jpg'); filter: brightness(0.6);"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
+
+            <div class="relative z-10 p-8 max-w-5xl mx-auto flex flex-col items-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-3 tracking-tight animate-fadeInUp">
+                    Hello, I am <span class="text-blue-400 block sm:inline-block mt-2 sm:mt-0">Rivaldi Syaputra</span>
+                </h1>
+                <p class="text-xl md:text-2xl font-light mb-8 max-w-3xl animate-fadeInUp" style="animation-delay: 0.3s;">
+                    A  <span class="font-semibold text-blue-300">Network Engineer, IT Support dan Security Operation Center</span> enthusiast dedicated to building strong and secure network infrastructure.
+                </p>
+                <a href="#projects" class="bg-blue-600 text-white text-base px-7 py-3 rounded-full font-bold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-fadeInUp" style="animation-delay: 0.6s;">
+                    My projects
+                </a>
+            </div>
+        </section>
+
+        <section id="about" class="py-16 bg-gray-50 text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
+            <div class="container mx-auto px-8">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">About Me</h2>
+                <div class="flex flex-col md:flex-row items-center md:space-x-10">
+                    <div class="md:w-1/3 mb-8 md:mb-0">
+                        <img src="./public/images/rivaldi.jpg" alt="Nama Anda" class="rounded-xl shadow-2xl  max-32 md:max-w-60 mx-auto transform hover:scale-105 transition-transform duration-300">
+                    </div>
+                    <div class="md:w-2/3 text-base leading-relaxed text-gray-700">
+                        <p class="mb-3 text-base">
+                            Hello! I am Rivaldi Syaputra, a dedicated Network Engineer with solid experience in designing, implementing, and managing various scalable and secure network solutions. I have a deep interest in: Network Security, Infrastructure Automation, and System Performance Optimization.
+                        </p>
+                        <p class="mb-3 text-base">
+                            With a strong understanding of protocols, network device management, and advanced troubleshooting, I always ensure that the systems I manage operate reliably, efficiently, and securely. I am also accustomed to using tools and technologies such as: Mikrotik, Cisco, Fortinet, Linux Networking & Firewalls (iptables, nftables), VLAN, VPN, QoS, IDS/IPS, as well as monitoring tools like Zabbix & Grafana.
+                        </p>
+                        <p class="text-base">
+                            Outside of the professional world, I enjoy the latest technology information, exploring new tools for network automation, and occasionally playing strategy games. I believe that learning is a lifelong process, and I am always looking for ways to grow and share with the technology community.
+                        </p>
+                        <div class="mt-6 flex space-x-5">
+                            <a href="https://linkedin.com/in/rivaldis12112000" target="_blank" class="text-blue-600 hover:text-blue-800 text-base font-medium flex items-center space-x-2 transition-colors social-icon-hover">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0zM7.34 20.45H3.59V9.08h3.75v11.37zM5.46 7.64c-1.2 0-2.18-.98-2.18-2.18s.98-2.18 2.18-2.18 2.18.98 2.18 2.18-.97 2.18-2.18 2.18zm15.42 12.81h-3.75v-5.75c0-1.37-.49-2.31-1.7-2.31-1.04 0-1.66.71-1.94 1.39-.1.25-.13.59-.13.93v5.74H9.68s.05-10.32 0-11.37h3.75v1.61c.49-.78 1.45-1.89 3.39-1.89 2.47 0 4.3 1.62 4.3 5.1V20.45z"/></svg>
+                                <span>LinkedIn</span>
+                            </a>
+                            <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-blue-600 hover:text-blue-800 text-base font-medium flex items-center space-x-2 transition-colors social-icon-hover">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
+                                <span>GitHub</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-16 bg-white text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">Skills</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/Cisco.png" alt="Cisco Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Cisco</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Routing, Switching, Firewall</span>
+                    </div>
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/Mikrotik.png" alt="Mikrotik Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">MikroTik</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">RouterOS, Wireless, VPN</span>
+                    </div>
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/Linux.png" alt="Linux Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Linux</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Server Management, Scripting</span>
+                    </div>
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/php.png" alt="PHP Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">PHP</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Backend Development</span>
+                    </div>
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/Js.png" alt="JavaScript Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">JavaScript</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Interactive Web</span>
+                    </div>
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/4.png" alt="HTML Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">HTML5</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Structure & Semantics</span>
+                    </div>
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/3.png" alt="CSS3 Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">CSS3</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Styling & Design</span>
+                    </div>
+                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
+                        <img src="./public/images/REACT.png" alt="CSS3 Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
+                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">REACT</p>
+                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">FRAMEWORK</span>
+                    </div>
+                    </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-12 bg-gray-50 text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
+            <div class="container mx-auto px-4">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-center mb-8 text-gray-900 leading-tight">My Projects</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
+                        <img src="./public/images/web1.png" alt="Implementasi VLAN & Routing Inter-VLAN" class="w-full h-48 object-cover object-center">
+                        <div class="p-4">
+                            <h3 class="text-base font-bold mb-1.5 text-gray-900">Website hospital recommendations for BPJS participants for eye diseases</h3>
+                            <p class="text-gray-700 text-xs mb-2 leading-snug">
+                                This research produced a hospital recommendation system for BPJS participants suffering from eye diseases by utilizing the Weighted Product method to assist the community, especially in the city of Bandung, in choosing hospitals that meet their needs. 
+                            </p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">HTML</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1.5 py-1 rounded-full">CSS</span>
+                                <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-1.5 py-1 rounded-full">PHP</span>
+                                <span class="bg-sky-100 text-sky-800 text-xs font-semibold px-1.5 py-1 rounded-full">MySQL</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+                                <a href="https://rekomendasi.infinityfreeapp.com/" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold text-xs flex items-center transition-colors">
+                                    View Details
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                                <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors social-icon-hover">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
+                        <img src="./public/images/porto.jpg" alt="Sistem Monitoring Jaringan Sederhana" class="w-full h-48 object-cover object-center">
+                        <div class="p-4">
+                            <h3 class="text-base font-bold mb-1.5 text-gray-900">Portfolio</h3>
+                            <p class="text-gray-700 text-xs mb-2 leading-snug">
+                                Hello! I am Rivaldi Syaputra, a dedicated Network Engineer with solid experience in designing, implementing, and managing various scalable and secure network solutions. I have a deep interest in: Network Security, Infrastructure Automation, and System Performance Optimization.
+                            </p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">HTML</span>
+                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">Tailwindcss</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+                                <a href="https://github.com/rivaldisyaputra" class="text-blue-600 hover:text-blue-800 font-bold text-xs flex items-center transition-colors">
+                                    View Details
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                                <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors social-icon-hover">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
+                        <img src="./public/images/tryout.jpg" alt="Sistem Monitoring Jaringan Sederhana" class="w-full h-48 object-cover object-center">
+                        <div class="p-4">
+                            <h3 class="text-base font-bold mb-1.5 text-gray-900">Tryout Online</h3>
+                            <p class="text-gray-700 text-xs mb-2 leading-snug">
+                                The development of this Online Tryout application aims to provide an accessible, interactive, and responsive web-based practice platform for users. It features category selection, participant name input, start confirmation, randomized questions, question navigation, progress tracking, a 90-minute countdown timer, and result saving with a top 15 leaderboard.
+                            </p>
+                            <div class="flex flex-wrap gap-1 mb-3">
+                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">HTML</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1.5 py-1 rounded-full">CSS</span>
+                                <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-1.5 py-1 rounded-full">PHP</span>
+                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">JSON</span>
+                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">JavaScript</span>
+                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">BOOTSTRAP</span>
+                            </div>
+                            <div class="flex justify-between items-center pt-2 border-t border-gray-100">
+                                <a href="https://luxury12.infinityfreeapp.com/" target="_blank"  class="text-blue-600 hover:text-blue-800 font-bold text-xs flex items-center transition-colors">
+                                    View Details
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                </a>
+                                <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors social-icon-hover">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="certificates" class="py-16 bg-white text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">Certificates</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/hackpoint.jpg" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <div>
+                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">HACKPOINT BOOTCAMP 1</h3>
+                            <p class="text-gray-700 text-sm mb-2">Issued by HACKPOINT - 07/25</p>
+                            <a href="./public/pdf/RIVALDI_SYAPUTRA_botcamp.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                        </div>
+                    </div>
+                     <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/hackpoint.jpg" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <div>
+                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">CYBERSHIELD 2025</h3>
+                            <p class="text-gray-700 text-sm mb-2">Issued by HACKPOINT - 04/25</p>
+                            <a href="./public/pdf/Cybershield 2025 - E Certificate-13.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/65406-logo-digitalent.jpg" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <div>
+                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Security Operations Analyst Fresh Graduate Academy</h3>
+                            <p class="text-gray-700 text-sm mb-2">Issued by Digitalent - 04/24</p>
+                            <a href="./public/pdf/sertif cyber security.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/ta.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <div>
+                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">TALENTA AI INDONESIA</h3>
+                            <p class="text-gray-700 text-sm mb-2">Issued by Talenta AI - 02/24</p>
+                            <a href="./public/pdf/talenta ai.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <div>
+                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cybersecurity Associate</h3>
+                            <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 09/22</p>
+                            <a href="./public/pdf/RivaldiSyaputra-CyberOps Associa-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <div>
+                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cisco Certified Network Associate (CCNA2)</h3>
+                            <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 08/22</p>
+                            <a href="./public/pdf/RivaldiSyaputra-CCNA2-UNIKOM-212-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <div>
+                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cybersecurity Essentials</h3>
+                            <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 06/22</p>
+                            <a href="./public/pdf/RIVALDISYAPUTRA-2022_REKIN_CYBER-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                        </div>
+                    </div> 
+                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
+                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
+                        <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cisco Certified Network Associate (CCNA1)</h3>
+                        <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 02/22</p>
+                        <a href="./public/pdf/RIVALDISYAPUTRA-CCNA1-UNIKOM-212-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       <section id="contact" class="py-16 bg-gray-50 text-gray-800 animated-section min-h-[80vh] justify-center items-center relative flex">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">Contact Me</h2>
+                <div class="max-w-md mx-auto bg-white p-7 rounded-2xl shadow-xl border border-gray-200 text-center">
+                    <p class="mb-6 text-base text-gray-700">Interested in collaborating, discussing projects, or have questions? You can contact me through the following platforms:</p>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-start space-x-3 text-lg text-gray-800">
+                            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12.713l-10.732-9.427h21.464l-10.732 9.427zm0 2.287l-12-10.46v16.173h24v-16.173l-12 10.46z"/></svg>
+                            <a href="mailto:rivaldisyaputra029@gmail.com" class="font-medium hover:text-blue-600 transition-colors">rivaldisyaputra029@gmail.com</a>
+                        </div>
+                        <div class="flex items-center justify-start space-x-3 text-lg text-gray-800">
+                            <svg class="w-6 h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
+                            <a href="https://github.com/rivaldisyaputra" target="_blank" class="font-medium hover:text-blue-600 transition-colors">rivaldisyaputra</a>
+                        </div>
+                        <div class="flex items-center justify-start space-x-3 text-lg text-gray-800">
+                            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0zM7.34 20.45H3.59V9.08h3.75v11.37zM5.46 7.64c-1.2 0-2.18-.98-2.18-2.18s.98-2.18 2.18-2.18 2.18.98 2.18 2.18-.97 2.18-2.18 2.18zm15.42 12.81h-3.75v-5.75c0-1.37-.49-2.31-1.7-2.31-1.04 0-1.66.71-1.94 1.39-.1.25-.13.59-.13.93v5.74H9.68s.05-10.32 0-11.37h3.75v1.61c.49-.78 1.45-1.89 3.39-1.89 2.47 0 4.3 1.62 4.3 5.1V20.45z"/></svg>
+                            <a href="https://linkedin.com/in/rivaldis12112000" target="_blank" class="font-medium hover:text-blue-600 transition-colors">rivaldis12112000</a>
+                        </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white p-7 text-center border-t border-gray-700">
+        <p class="text-sm">&copy; 2025 Rivaldi Syaputra. All rights reserved.</p>
+        
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('#mobile-menu a').forEach(item => {
+            item.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer for Section Animations
+        const sections = document.querySelectorAll('.animated-section');
+
+        const observerOptions = {
+            root: null, // viewport
+            rootMargin: '0px',
+            threshold: 0.1 // 10% of the section must be visible
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target); // Stop observing once animated
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
