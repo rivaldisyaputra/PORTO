@@ -1,0 +1,31 @@
+name: Deploy to Netlify
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Deploy Preview untuk PR
+      - name: Netlify Deploy Preview
+        if: github.event_name == 'pull_request'
+        uses: netlify/actions/cli@v3
+        with:
+          args: deploy --dir=. --message="PR #${{ github.event.number }}" --json
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID:    ${{ secrets.NETLIFY_SITE_ID }}
+
+      # Deploy Production saat push ke main
+      - name: Netlify Deploy Production
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: netlify/actions/cli@v3
+        with:
+          args: deploy --dir=. --prod --message="main @ ${{ github.sha }}" --json
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID:    ${{ secrets.NETLIFY_SITE_ID }}
