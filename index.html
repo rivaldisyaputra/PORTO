@@ -1,458 +1,450 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rivaldi Syaputra- Network Engineer Portfolio</title>
+    <title>Rivaldi Syaputra - AI Prompt Engineer & IT Support Portfolio</title>
+    <meta name="description" content="Portfolio of Rivaldi Syaputra, an AI Prompt Engineer and IT Support Specialist based in Bandung, Indonesia.">
+    <meta property="og:title" content="Rivaldi Syaputra - AI Prompt Engineer & IT Support">
+    <meta property="og:description" content="Portfolio of Rivaldi Syaputra, an AI Prompt Engineer and IT Support Specialist based in Bandung, Indonesia.">
+    <meta property="og:image" content="https://rivaldi12.netlify.app/public/images/porto.jpg">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#071226">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='10' fill='%23071226'/%3E%3Cg fill='none' stroke='%237cc4ff' stroke-width='2.5'%3E%3Crect x='12' y='12' width='24' height='24'/%3E%3Crect x='12' y='12' width='24' height='24' transform='rotate(45 24 24)'/%3E%3C/g%3E%3Cpath d='M24 18 30 24 24 30 18 24Z' fill='%23ffc46b'/%3E%3C/svg%3E">
+    <!-- shortcut: Tailwind CDN is meant for prototyping, switch to a built CSS file if load time matters -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght=700;800;900&display=swap" rel="stylesheet">
-    
-    <style>
-        /* Smooth scroll for navigation */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* Custom Keyframes for Animations (lebih presisi daripada bawaan Tailwind untuk beberapa kasus) */
-        @keyframes fadeInScaleUp {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { ink: '#071226', panel: '#0c1a33', line: '#1d3157', snow: '#ffffff', sky: '#7cc4ff', fog: '#9fb3d1', amber: '#ffc46b' },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                        display: ['Marcellus', 'Georgia', 'serif'],
+                        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
+                    }
+                }
             }
         }
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .animate-fadeInScaleUp {
-            animation: fadeInScaleUp 0.8s ease-out forwards;
-        }
-        .animate-fadeInUp {
-            animation: fadeInUp 0.7s ease-out forwards;
-        }
-        /* Untuk elemen yang akan di-animate dengan Intersection Observer */
-        .animated-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-        }
-        .animated-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Marcellus&display=swap" rel="stylesheet">
 
-        /* Hover effect for social media icons */
-        .social-icon-hover {
-            transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    <style>
+        html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+        [hidden] { display: none !important; } /* Tailwind's .flex would otherwise override the hidden attribute */
+
+        /* Cards light up under the pointer; main.js sets --mx / --my */
+        .spot { position: relative; }
+        .spot::before {
+            content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+            background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(124, 196, 255, .14), transparent 60%);
+            opacity: 0; transition: opacity .3s;
         }
-        .social-icon-hover:hover {
-            transform: translateY(-3px);
+        .spot:hover::before { opacity: 1; }
+
+        /* All motion below is gated on .js (set by main.js), so content is never hidden if the script fails */
+        .js .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease-out, transform .7s ease-out; }
+        .js .reveal.in { opacity: 1; transform: none; }
+
+        /* Children of a .stagger container follow their section in, one after another */
+        .js .reveal .stagger > * { opacity: 0; transform: translateY(18px); transition: opacity .6s ease-out, transform .6s ease-out; }
+        .js .reveal.in .stagger > * { opacity: 1; transform: none; }
+        .stagger > :nth-child(2) { transition-delay: .08s; } .stagger > :nth-child(3) { transition-delay: .16s; }
+        .stagger > :nth-child(4) { transition-delay: .24s; } .stagger > :nth-child(5) { transition-delay: .32s; }
+        .stagger > :nth-child(6) { transition-delay: .40s; } .stagger > :nth-child(7) { transition-delay: .48s; }
+        .stagger > :nth-child(8) { transition-delay: .56s; }
+
+        /* Hero items rise in on load; delay is set inline per item */
+        .js .rise { animation: rise .8s cubic-bezier(.2, .7, .2, 1) backwards; }
+        @keyframes rise { from { opacity: 0; transform: translateY(22px); } }
+
+        /* Skill chips pop in each time a tab is opened */
+        .js [data-panel] li { animation: pop .35s ease-out backwards; }
+        [data-panel] li:nth-child(2) { animation-delay: .05s; } [data-panel] li:nth-child(3) { animation-delay: .10s; }
+        [data-panel] li:nth-child(4) { animation-delay: .15s; } [data-panel] li:nth-child(5) { animation-delay: .20s; }
+        [data-panel] li:nth-child(6) { animation-delay: .25s; } [data-panel] li:nth-child(7) { animation-delay: .30s; }
+        @keyframes pop { from { opacity: 0; transform: scale(.92) translateY(6px); } }
+
+
+        /* Ethnic layer: a woven-diamond field that drifts behind the whole page (moves exactly one tile, so the loop is seamless) */
+        .weave {
+            position: fixed; inset: -120px; z-index: -1; pointer-events: none; opacity: .07;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' fill='none' stroke='%237cc4ff' stroke-width='1.5'%3E%3Cpath d='M60 6 114 60 60 114 6 60Z'/%3E%3Cpath d='M60 30 90 60 60 90 30 60Z'/%3E%3Cpath d='M60 50 70 60 60 70 50 60Z' fill='%237cc4ff'/%3E%3Cpath d='M0-14 14 0 0 14-14 0ZM120-14 134 0 120 14 106 0ZM0 106 14 120 0 134-14 120ZM120 106 134 120 120 134 106 120Z'/%3E%3Cpath d='M60-4 64 0 60 4 56 0ZM60 116 64 120 60 124 56 120ZM-4 60 0 56 4 60 0 64ZM116 60 120 56 124 60 120 64Z' fill='%23ffc46b' stroke='none'/%3E%3C/svg%3E") 0 0 / 120px 120px;
+            animation: drift 24s linear infinite; will-change: transform;
+        }
+        @keyframes drift { to { transform: translate(120px, 120px); } }
+
+        /* Zigzag ribbon between sections, always travelling sideways */
+        .band { position: relative; height: 24px; overflow: hidden; opacity: .85; }
+        .band::before {
+            content: ""; position: absolute; inset: 0 0 0 -48px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='24'%3E%3Cpath d='M0 20 12 4 24 20 36 4 48 20' fill='none' stroke='%237cc4ff' stroke-width='2'/%3E%3Cpath d='M12 13 16 18 12 23 8 18ZM36 13 40 18 36 23 32 18Z' fill='%23ffc46b'/%3E%3Cpath d='M0 3 3 7 0 11-3 7ZM24 3 27 7 24 11 21 7ZM48 3 51 7 48 11 45 7Z' fill='%237cc4ff'/%3E%3C/svg%3E") 0 0 / 48px 24px repeat-x;
+            animation: slide 2.4s linear infinite; will-change: transform;
+        }
+        .band.rev::before { animation-direction: reverse; }
+        @keyframes slide { to { transform: translateX(48px); } }
+
+        /* Eight-point star medallions keep turning */
+        .medal { animation: spin 14s linear infinite; stroke-width: 2; }
+        .medal.slow { animation-duration: 90s; stroke-width: .6; } /* thin lines on the big backdrop star */
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        nav a[aria-current="true"] { color: #7cc4ff; }
+        [role="tab"][aria-selected="true"] { background: #7cc4ff; color: #071226; border-color: #7cc4ff; }
+
+        .caret::after { content: "▍"; color: #7cc4ff; animation: blink 1s steps(1) infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .js .reveal, .js .reveal .stagger > * { opacity: 1; transform: none; transition: none; }
+            .js .rise, .js [data-panel] li, .caret::after, .weave, .band::before, .medal { animation: none; }
         }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50"> 
+<body class="font-sans bg-ink text-slate-200 antialiased selection:bg-sky selection:text-ink">
 
-    <header class="bg-gray-900 text-white p-1 shadow-xl sticky top-0 z-50">
-        <nav class="container mx-auto flex justify-between items-center py-2">
-            <a href="#hero" class="text-2xl md:text-3xl font-extrabold tracking-wide hover:text-blue-400 transition-colors duration-300">Rivaldi Syaputra</a>
-            <div class="hidden md:flex space-x-6 items-center">
-                <a href="#about" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">About</a>
-                <a href="#skills" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Skills</a>
-                <a href="#projects" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Projects</a>
-                <a href="#certificates" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Certificates</a>
-                <a href="#contact" class="text-base hover:text-blue-400 transition-colors duration-300 transform hover:scale-105">Contact</a>
-                <a href="./public/pdf/CV_Rivaldi Syaputra_ATS.pdf" target="_blank" class="bg-blue-600 text-white px-5 py-2 rounded-full font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md hover:shadow-lg text-sm">See CV</a>
+    <div class="weave" aria-hidden="true"></div>
+
+    <svg class="hidden" aria-hidden="true">
+        <symbol id="i-github" viewBox="0 0 24 24"><path fill="currentColor" d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.1c-3.2.7-3.87-1.37-3.87-1.37-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.02 1.76 2.69 1.25 3.34.95.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.25.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.05 0 0 .97-.31 3.16 1.18a10.9 10.9 0 0 1 5.76 0c2.19-1.49 3.16-1.18 3.16-1.18.62 1.59.23 2.76.11 3.05.74.81 1.18 1.84 1.18 3.09 0 4.42-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.13v3.16c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></symbol>
+        <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0zM7.34 20.45H3.59V9.08h3.75v11.37zM5.46 7.64a2.18 2.18 0 1 1 0-4.36 2.18 2.18 0 0 1 0 4.36zm15.42 12.81h-3.75v-5.75c0-1.37-.49-2.31-1.7-2.31-1.04 0-1.66.71-1.94 1.39-.1.25-.13.59-.13.93v5.74H9.68s.05-10.32 0-11.37h3.75v1.61c.49-.78 1.45-1.89 3.39-1.89 2.47 0 4.3 1.62 4.3 5.1v6.55z"/></symbol>
+        <symbol id="i-medal" viewBox="0 0 48 48"><g fill="none" stroke="currentColor"><rect x="10" y="10" width="28" height="28"/><rect x="10" y="10" width="28" height="28" transform="rotate(45 24 24)"/></g><path d="M24 17 31 24 24 31 17 24Z" fill="#ffc46b"/></symbol>
+        <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M7 17 17 7M8 7h9v9"/></symbol>
+    </svg>
+
+    <div id="progress" class="fixed top-0 left-0 z-[60] h-0.5 w-full origin-left scale-x-0 bg-sky" aria-hidden="true"></div>
+
+    <header class="sticky top-0 z-50 bg-ink/95">
+        <nav class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3 md:grid md:grid-cols-[1fr,auto,1fr]" aria-label="Main">
+            <a href="#hero" class="text-sm font-semibold text-white">Rivaldi Syaputra</a>
+            <div class="hidden items-center gap-7 text-sm text-fog md:flex">
+                <a href="#about" class="transition-colors hover:text-white">About</a>
+                <a href="#skills" class="transition-colors hover:text-white">Skills</a>
+                <a href="#projects" class="transition-colors hover:text-white">Projects</a>
+                <a href="#experience" class="transition-colors hover:text-white">Experience</a>
+                <a href="#certificates" class="transition-colors hover:text-white">Certificates</a>
+                <a href="#contact" class="transition-colors hover:text-white">Contact</a>
             </div>
-            <button id="mobile-menu-button" class="md:hidden text-white focus:outline-none p-2 rounded-md hover:bg-gray-700 transition-colors">
-                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
+            <a href="./public/pdf/CV_Rivaldi%20Syaputra_ATS.pdf" target="_blank" rel="noopener" class="hidden justify-self-end rounded-full bg-sky/10 ring-1 ring-sky/30 px-4 py-1.5 text-sm font-semibold text-white transition-colors hover:bg-sky/20 md:block">See CV</a>
+            <button id="mobile-menu-button" class="rounded-md p-2 text-white hover:bg-panel md:hidden" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
             </button>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-gray-800 mt-2 rounded-lg shadow-lg py-2">
-            <a href="#about" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 transition-colors text-base">About</a>
-            <a href="#skills" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 transition-colors text-base">Skills</a>
-            <a href="#projects" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">Projects</a>
-            <a href="#certificates" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">Certificates</a>
-            <a href="#contact" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">Contact</a>
-            <a href="./public/pdf/CV_Rivaldi Syaputra_ATS.pdf" target="_blank" class="block py-2 px-4 text-white hover:bg-gray-700 hover:text-blue-400 text-base">See CV</a>
+        <div id="mobile-menu" class="hidden border-t border-line px-5 py-2 text-sm md:hidden">
+            <a href="#about" class="block py-2 text-fog hover:text-white">About</a>
+            <a href="#skills" class="block py-2 text-fog hover:text-white">Skills</a>
+            <a href="#projects" class="block py-2 text-fog hover:text-white">Projects</a>
+            <a href="#experience" class="block py-2 text-fog hover:text-white">Experience</a>
+            <a href="#certificates" class="block py-2 text-fog hover:text-white">Certificates</a>
+            <a href="#contact" class="block py-2 text-fog hover:text-white">Contact</a>
+            <a href="./public/pdf/CV_Rivaldi%20Syaputra_ATS.pdf" target="_blank" rel="noopener" class="block py-2 font-semibold text-white">See CV</a>
         </div>
     </header>
 
     <main>
-        <section id="hero" class="relative flex items-center justify-center min-h-[100vh] bg-gradient-to-br from-gray-900 to-gray-700 text-center text-white overflow-hidden py-16"> 
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./images/hero-bg.jpg'); filter: brightness(0.6);"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent"></div>
-
-            <div class="relative z-10 p-8 max-w-5xl mx-auto flex flex-col items-center">
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-3 tracking-tight animate-fadeInUp">
-                    Hello, I am <span class="text-blue-400 block sm:inline-block mt-2 sm:mt-0">Rivaldi Syaputra</span>
-                </h1>
-                <p class="text-xl md:text-2xl font-light mb-8 max-w-3xl animate-fadeInUp" style="animation-delay: 0.3s;">
-                    A  <span class="font-semibold text-blue-300">DevOps Engineer and IT Support </span> professional committed to optimizing infrastructure, strengthening security, and ensuring reliable system operations.
+        <section id="hero" class="relative overflow-hidden">
+            <!-- Drawn by main.js: a woven field of diamonds that ripples on its own and swells under the pointer -->
+            <canvas id="weave" class="absolute inset-0 h-full w-full" aria-hidden="true"></canvas>
+            <div class="relative mx-auto flex min-h-[calc(100vh-3.5rem)] max-w-6xl flex-col items-center px-5 pb-20 pt-20 text-center sm:pt-28">
+                <p class="rise text-sm text-sky">AI Prompt Engineer · IT Support</p>
+                <h1 style="animation-delay: .1s" class="rise mt-4 text-5xl font-display font-normal tracking-tight text-white sm:text-7xl">Rivaldi Syaputra.</h1>
+                <p style="animation-delay: .2s" class="rise mt-5 max-w-xl text-lg leading-relaxed text-fog">
+                    I design reliable prompts and AI-assisted workflows, backed by a foundation in infrastructure and networking.
                 </p>
-                <a href="#projects" class="bg-blue-600 text-white text-base px-7 py-3 rounded-full font-bold hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-fadeInUp" style="animation-delay: 0.6s;">
-                    My projects
-                </a>
-            </div>
-        </section>
+                <a href="#projects" style="animation-delay: .3s" class="rise mt-8 rounded-full bg-sky px-6 py-3 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5">See projects</a>
 
-        <section id="about" class="py-16 bg-gray-50 text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
-            <div class="container mx-auto px-8">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">About Me</h2>
-                <div class="flex flex-col md:flex-row items-center md:space-x-10">
-                    <div class="md:w-1/3 mb-8 md:mb-0">
-                        <img src="./public/images/rivaldi.jpg" alt="Nama Anda" class="rounded-xl shadow-2xl  max-32 md:max-w-60 mx-auto transform hover:scale-105 transition-transform duration-300">
-                    </div>
-                    <div class="md:w-2/3 text-base leading-relaxed text-gray-700">
-                        <p class="mb-3 text-base">
-                           Hello! I am Rivaldi Syaputra, a dedicated DevOps Engineer and IT Support Specialist with strong experience in building, automating, and maintaining reliable IT infrastructures. I have a deep interest in Infrastructure Automation, System Monitoring, Cloud & Container Technologies, and IT Operations Support.
-                        </p>
-                        <p class="mb-3 text-base">
-                            With a solid foundation in Linux system administration, networking, and troubleshooting, I ensure that applications and services run securely, efficiently, and with minimal downtime. I am experienced in using tools and technologies such as Docker, GitHub Actions, CI/CD Pipelines, Nginx, Apache, Linux Servers, Virtualization (VMware/VirtualBox), Monitoring with Prometheus & Grafana, and Helpdesk/IT Support workflows.
-                        </p>
-                        <p class="mb-3 text-base">
-                            In the IT Support area, I have hands-on experience with hardware & software troubleshooting, user support, endpoint security, and network maintenance, ensuring smooth day-to-day operations for both teams and end-users
-                        </p>
-                        <p class="mb-3 text-base">
-                            Outside of work, I enjoy exploring new DevOps tools, learning about cloud-native technologies, and occasionally playing strategy games. I believe continuous learning and adaptability are key to staying relevant in today’s fast-evolving tech landscape, and I am eager to keep growing while contributing to the community.
-                        </p>
-                        <div class="mt-6 flex space-x-5">
-                            <a href="https://linkedin.com/in/rivaldis12112000" target="_blank" class="text-blue-600 hover:text-blue-800 text-base font-medium flex items-center space-x-2 transition-colors social-icon-hover">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0zM7.34 20.45H3.59V9.08h3.75v11.37zM5.46 7.64c-1.2 0-2.18-.98-2.18-2.18s.98-2.18 2.18-2.18 2.18.98 2.18 2.18-.97 2.18-2.18 2.18zm15.42 12.81h-3.75v-5.75c0-1.37-.49-2.31-1.7-2.31-1.04 0-1.66.71-1.94 1.39-.1.25-.13.59-.13.93v5.74H9.68s.05-10.32 0-11.37h3.75v1.61c.49-.78 1.45-1.89 3.39-1.89 2.47 0 4.3 1.62 4.3 5.1V20.45z"/></svg>
-                                <span>LinkedIn</span>
-                            </a>
-                            <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-blue-600 hover:text-blue-800 text-base font-medium flex items-center space-x-2 transition-colors social-icon-hover">
-                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                                <span>GitHub</span>
-                            </a>
+                <div style="animation-delay: .45s" class="rise relative mt-16 w-full max-w-2xl">
+
+                    <!-- Interactive terminal: commands are handled in main.js -->
+                    <div class="relative overflow-hidden rounded-2xl border border-line bg-ink/95 text-left shadow-2xl shadow-black/40">
+                        <div class="flex items-center gap-2 border-b border-line px-4 py-3">
+                            <span class="h-3 w-3 rounded-full bg-line"></span>
+                            <span class="h-3 w-3 rounded-full bg-line"></span>
+                            <span class="h-3 w-3 rounded-full bg-line"></span>
+                            <span class="ml-2 font-mono text-xs text-fog">rivaldi — prompt</span>
+                        </div>
+                        <div id="term-out" class="h-52 overflow-y-auto whitespace-pre-wrap px-4 py-3 font-mono text-sm leading-relaxed text-slate-200" aria-live="polite"><span class="text-fog">The terminal needs JavaScript. Use the menu above to browse the page.</span></div>
+                        <form id="term-form" class="flex items-center gap-2 border-t border-line px-4 py-3 font-mono text-sm">
+                            <label for="term-in" class="text-white" aria-label="Terminal command">›</label>
+                            <input id="term-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type a command, e.g. help" class="w-full bg-transparent text-white placeholder:text-fog/60 focus:outline-none">
+                        </form>
+                        <div class="flex flex-wrap gap-2 border-t border-line px-4 py-3">
+                        <button type="button" data-cmd="help" class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fog transition-colors hover:border-sky hover:text-sky">help</button>
+                        <button type="button" data-cmd="about" class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fog transition-colors hover:border-sky hover:text-sky">about</button>
+                        <button type="button" data-cmd="skills" class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fog transition-colors hover:border-sky hover:text-sky">skills</button>
+                        <button type="button" data-cmd="projects" class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fog transition-colors hover:border-sky hover:text-sky">projects</button>
+                        <button type="button" data-cmd="contact" class="rounded-md border border-line px-2.5 py-1 font-mono text-xs text-fog transition-colors hover:border-sky hover:text-sky">contact</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="py-16 bg-white text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">Skills</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/docker.png" alt="Cisco Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Docker</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Containerization, Portabilitas, Automation & CI/CD</span>
-                    </div>
-                     <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/prometheus.png" alt="Cisco Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Prometheus</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">System monitoring & time-series database</span>
-                    </div>
-                     <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/grafana.png" alt="Cisco Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Grafana</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Platform visualisasi data</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/Github.png" alt="Cisco Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">GitHub</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Source code + CI/CD pipeline</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/Cisco.png" alt="Cisco Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Cisco</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Routing, Switching, Firewall</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/Mikrotik.png" alt="Mikrotik Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">MikroTik</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">RouterOS, Wireless, VPN</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/Linux.png" alt="Linux Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">Linux</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Server Management, Scripting</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/php.png" alt="PHP Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">PHP</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Backend Development</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/Js.png" alt="JavaScript Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">JavaScript</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Interactive Web</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/4.png" alt="HTML Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">HTML5</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Structure & Semantics</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/3.png" alt="CSS3 Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">CSS3</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">Styling & Design</span>
-                    </div>
-                    <div class="flex flex-col items-center p-5 bg-gray-100 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 group border border-gray-200">
-                        <img src="./public/images/REACT.png" alt="CSS3 Logo" class="w-20 h-20 mb-3 object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300">
-                        <p class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors duration-300">REACT</p>
-                        <span class="text-xs text-gray-600 mt-1 text-center group-hover:text-gray-800 transition-colors duration-300">FRAMEWORK</span>
-                    </div>
+        <div class="band" aria-hidden="true"></div>
+
+        <section id="about" class="reveal mx-auto max-w-6xl px-5 py-24">
+            <p class="flex items-center gap-3 text-sm text-sky"><svg class="medal h-6 w-6" aria-hidden="true"><use href="#i-medal"/></svg>01 / about</p>
+            <h2 class="mt-2 text-3xl font-display font-normal tracking-tight text-white sm:text-4xl">About me</h2>
+            <div class="mt-10 grid gap-10 md:grid-cols-[auto,1fr] md:gap-14">
+                <div class="relative mx-auto w-52 shrink-0 md:mx-0">
+                    <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-2xl border border-sky/50" aria-hidden="true"></div>
+                    <img src="./public/images/rivaldi.jpg" alt="Rivaldi Syaputra" width="720" height="1080" class="relative rounded-2xl">
+                </div>
+                <div class="space-y-4 leading-relaxed text-fog">
+                    <p>
+                        Hello! I am Rivaldi Syaputra, an AI Prompt Engineer and IT Support Specialist based in Bandung, Indonesia. I design and refine prompts and system instructions so that AI models give accurate, consistent, and useful results.
+                    </p>
+                    <p>
+                        My background is in computer systems and networking: Linux administration, Docker, CI/CD with GitHub Actions, Nginx and Apache, virtualization, and monitoring with Prometheus & Grafana. That foundation helps me build AI-assisted workflows that fit how real systems are deployed and operated.
+                    </p>
+                    <p>
+                        In IT support, I have hands-on experience with hardware and software troubleshooting, user support, endpoint security, and network maintenance, keeping day-to-day operations smooth for teams and end-users.
+                    </p>
+                    <dl class="stagger grid gap-4 pt-4 sm:grid-cols-3">
+                        <div class="rounded-xl border border-line bg-panel p-4">
+                            <dt class="text-xs text-sky">location</dt>
+                            <dd class="mt-1 text-sm text-white">Bandung, Indonesia</dd>
+                        </div>
+                        <div class="rounded-xl border border-line bg-panel p-4">
+                            <dt class="text-xs text-sky">education</dt>
+                            <dd class="mt-1 text-sm text-white">Computer Systems, UNIKOM</dd>
+                        </div>
+                        <div class="rounded-xl border border-line bg-panel p-4">
+                            <dt class="text-xs text-sky">focus</dt>
+                            <dd class="mt-1 text-sm text-white">AI prompting, IT support</dd>
+                        </div>
+                    </dl>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="py-12 bg-gray-50 text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
-            <div class="container mx-auto px-4">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-center mb-8 text-gray-900 leading-tight">My Projects</h2>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
-                        <img src="./public/images/senam-otak.jpg" alt="Sistem Monitoring Jaringan Sederhana" class="w-full h-48 object-cover object-center">
-                        <div class="p-4">
-                            <h3 class="text-base font-bold mb-1.5 text-gray-900">Tryout Online V 1.0.0</h3>
-                            <p class="text-gray-700 text-xs mb-2 leading-snug">
-                                The development of this Online Tryout application aims to provide an accessible, interactive, and responsive web-based practice platform for users. It includes multiple test modules such as Tryout, Quiz, Precision games, and Color Blindness Test.
-                            <div class="flex flex-wrap gap-1 mb-3">
-                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">REACT JS</span>
-                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">JSON</span>
-                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1.5 py-1 rounded-full">CI/CD</span>
-                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">JavaScript</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-1.5 py-1 rounded-full">Github Action</span>
-                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">AWS CLOUD</span>
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-gray-100">
-                                <a href="https://senam-otak.my.id/" target="_blank"  class="text-blue-600 hover:text-blue-800 font-bold text-xs flex items-center transition-colors">
-                                    View Details
-                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                                </a>
-                                <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors social-icon-hover">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
-                        <img src="./public/images/web1.png" alt="Implementasi VLAN & Routing Inter-VLAN" class="w-full h-48 object-cover object-center">
-                        <div class="p-4">
-                            <h3 class="text-base font-bold mb-1.5 text-gray-900">Website hospital recommendations for BPJS participants for eye diseases</h3>
-                            <p class="text-gray-700 text-xs mb-2 leading-snug">
-                                This research produced a hospital recommendation system for BPJS participants suffering from eye diseases by utilizing the Weighted Product method to assist the community, especially in the city of Bandung, in choosing hospitals that meet their needs. 
-                            </p>
-                            <div class="flex flex-wrap gap-1 mb-3">
-                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">HTML</span>
-                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1.5 py-1 rounded-full">CSS</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-1.5 py-1 rounded-full">PHP</span>
-                                <span class="bg-sky-100 text-sky-800 text-xs font-semibold px-1.5 py-1 rounded-full">MySQL</span>
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-gray-100">
-                                <a href="https://rekomendasi.infinityfreeapp.com/" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold text-xs flex items-center transition-colors">
-                                    View Details
-                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                                </a>
-                                <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors social-icon-hover">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
-                        <img src="./public/images/porto.jpg" alt="Sistem Monitoring Jaringan Sederhana" class="w-full h-48 object-cover object-center">
-                        <div class="p-4">
-                            <h3 class="text-base font-bold mb-1.5 text-gray-900">Portfolio</h3>
-                            <p class="text-gray-700 text-xs mb-2 leading-snug">
-                                Hello! I am Rivaldi Syaputra, a dedicated Network Engineer with solid experience in designing, implementing, and managing various scalable and secure network solutions. I have a deep interest in: Network Security, Infrastructure Automation, and System Performance Optimization.
-                            </p>
-                            <div class="flex flex-wrap gap-1 mb-3">
-                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">HTML</span>
-                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">Tailwindcss</span>
-                                 <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1.5 py-1 rounded-full">CI/CD</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-1.5 py-1 rounded-full">Github Action</span>
-                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">Netlify</span>
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-gray-100">
-                                <a href="https://rivaldi12.netlify.app/" target="_blank" class="text-blue-600 hover:text-blue-800 font-bold text-xs flex items-center transition-colors">
-                                    View Details
-                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                                </a>
-                                <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors social-icon-hover">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="bg-white rounded-xl shadow-md overflow-hidden transform hover:scale-[1.01] transition-all duration-300 border border-gray-100">
-                        <img src="./public/images/tryout.jpg" alt="Sistem Monitoring Jaringan Sederhana" class="w-full h-48 object-cover object-center">
-                        <div class="p-4">
-                            <h3 class="text-base font-bold mb-1.5 text-gray-900">Tryout Online</h3>
-                            <p class="text-gray-700 text-xs mb-2 leading-snug">
-                                The development of this Online Tryout application aims to provide an accessible, interactive, and responsive web-based practice platform for users. It features category selection, participant name input, start confirmation, randomized questions, question navigation, progress tracking, a 90-minute countdown timer, and result saving with a top 15 leaderboard.
-                            </p>
-                            <div class="flex flex-wrap gap-1 mb-3">
-                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">HTML</span>
-                                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-1.5 py-1 rounded-full">CSS</span>
-                                <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-1.5 py-1 rounded-full">PHP</span>
-                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">JSON</span>
-                                <span class="bg-orange-100 text-orange-800 text-xs font-semibold px-1.5 py-1 rounded-full">JavaScript</span>
-                                <span class="bg-red-100 text-red-800 text-xs font-semibold px-1.5 py-1 rounded-full">BOOTSTRAP</span>
-                            </div>
-                            <div class="flex justify-between items-center pt-2 border-t border-gray-100">
-                                <a href="https://luxury12.infinityfreeapp.com/" target="_blank"  class="text-blue-600 hover:text-blue-800 font-bold text-xs flex items-center transition-colors">
-                                    View Details
-                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                                </a>
-                                <a href="https://github.com/rivaldisyaputra" target="_blank" class="text-gray-600 hover:text-gray-900 transition-colors social-icon-hover">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+        <div class="band rev" aria-hidden="true"></div>
+
+        <section id="skills" class="reveal border-y border-line bg-panel/40">
+            <div class="mx-auto max-w-6xl px-5 py-24">
+                <p class="flex items-center gap-3 text-sm text-sky"><svg class="medal h-6 w-6" aria-hidden="true"><use href="#i-medal"/></svg>02 / skills</p>
+                <h2 class="mt-2 text-3xl font-display font-normal tracking-tight text-white sm:text-4xl">Skills</h2>
+                <p class="mt-3 text-fog">Pick a category.</p>
+
+                <div class="mt-8 flex flex-wrap gap-2" role="tablist" aria-label="Skill categories">
+                    <button role="tab" aria-selected="true" data-tab="ai" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors">AI & Prompting</button>
+                    <button role="tab" aria-selected="false" data-tab="devops" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors">DevOps & Monitoring</button>
+                    <button role="tab" aria-selected="false" data-tab="net" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors">Networking & Security</button>
+                    <button role="tab" aria-selected="false" data-tab="web" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors">Web</button>
+                    <button role="tab" aria-selected="false" data-tab="support" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors">IT Support & Tools</button>
+                </div>
+
+                <!-- All panels are visible in the HTML; main.js hides the unselected ones, so nothing is lost without JS -->
+                <div class="mt-8 min-h-[9rem] space-y-3">
+                    <ul data-panel="ai" role="tabpanel" class="flex flex-wrap gap-3">
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Prompt design</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">System instructions</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">AI-assisted workflows</li>
+                    </ul>
+                    <ul data-panel="devops" role="tabpanel" class="flex flex-wrap gap-3">
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/docker.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">Docker & Docker Compose</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/Github.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">CI/CD with GitHub Actions</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/Linux.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">Linux server administration</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/prometheus.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">Prometheus</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/grafana.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">Grafana</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">VMware & VirtualBox</li>
+                    </ul>
+                    <ul data-panel="net" role="tabpanel" class="flex flex-wrap gap-3">
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/Cisco.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">Cisco routing & switching</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/Mikrotik.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">MikroTik RouterOS</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">TCP/IP, VLAN, VPN</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Firewall (iptables/nftables)</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Fortinet</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">IDS/IPS</li>
+                    </ul>
+                    <ul data-panel="web" role="tabpanel" class="flex flex-wrap gap-3">
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/4.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">HTML5</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/3.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">CSS3</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/Js.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">JavaScript</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/REACT.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">React</li>
+                        <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/php.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">PHP & Laravel</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Node.js</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Apache & Nginx</li>
+                    </ul>
+                    <ul data-panel="support" role="tabpanel" class="flex flex-wrap gap-3">
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Hardware & software troubleshooting</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">User support</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Git & GitHub</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Netlify</li>
+                    </ul>
                 </div>
             </div>
         </section>
 
-        <section id="certificates" class="py-16 bg-white text-gray-800 animated-section min-h-[100vh] justify-center items-center relative flex">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">Certificates</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/hackpoint.jpg" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <div>
-                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">HACKPOINT BOOTCAMP 1</h3>
-                            <p class="text-gray-700 text-sm mb-2">Issued by HACKPOINT - 07/25</p>
-                            <a href="./public/pdf/RIVALDI_SYAPUTRA_botcamp.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+        <div class="band" aria-hidden="true"></div>
+
+        <section id="projects" class="reveal mx-auto max-w-6xl px-5 py-24">
+            <p class="flex items-center gap-3 text-sm text-sky"><svg class="medal h-6 w-6" aria-hidden="true"><use href="#i-medal"/></svg>03 / projects</p>
+            <h2 class="mt-2 text-3xl font-display font-normal tracking-tight text-white sm:text-4xl">Projects</h2>
+
+            <div class="mt-10 stagger grid gap-6 md:grid-cols-2">
+                <article class="spot tilt group overflow-hidden rounded-2xl border border-line bg-panel transition-transform duration-300 hover:-translate-y-1">
+                    <div class="overflow-hidden"><img src="./public/images/senam-otak.jpg" alt="Tryout Online V 1.0.0 screenshot" loading="lazy" class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white">Tryout Online V 1.0.0</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">A responsive web-based practice platform with multiple test modules: Tryout, Quiz, Precision games, and a Color Blindness Test.</p>
+                        <p class="mt-4 text-xs text-sky">React · JavaScript · JSON · GitHub Actions · AWS</p>
+                        <div class="mt-5 flex items-center justify-between border-t border-line pt-4">
+                            <a href="https://senam-otak.my.id/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra" target="_blank" rel="noopener" aria-label="GitHub profile" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
                         </div>
                     </div>
-                     <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/hackpoint.jpg" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <div>
-                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">CYBERSHIELD 2025</h3>
-                            <p class="text-gray-700 text-sm mb-2">Issued by HACKPOINT - 04/25</p>
-                            <a href="./public/pdf/Cybershield 2025 - E Certificate-13.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                </article>
+
+                <article class="spot tilt group overflow-hidden rounded-2xl border border-line bg-panel transition-transform duration-300 hover:-translate-y-1">
+                    <div class="overflow-hidden"><img src="./public/images/web1.png" alt="Hospital recommendation website screenshot" loading="lazy" class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white">Hospital recommendations for BPJS eye patients</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">A recommendation system that uses the Weighted Product method to help BPJS participants in Bandung choose a hospital for eye diseases.</p>
+                        <p class="mt-4 text-xs text-sky">PHP · MySQL · HTML · CSS</p>
+                        <div class="mt-5 flex items-center justify-between border-t border-line pt-4">
+                            <a href="https://rekomendasi.infinityfreeapp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra" target="_blank" rel="noopener" aria-label="GitHub profile" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
                         </div>
                     </div>
-                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/65406-logo-digitalent.jpg" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <div>
-                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Security Operations Analyst Fresh Graduate Academy</h3>
-                            <p class="text-gray-700 text-sm mb-2">Issued by Digitalent - 04/24</p>
-                            <a href="./public/pdf/sertif cyber security.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                </article>
+
+                <article class="spot tilt group overflow-hidden rounded-2xl border border-line bg-panel transition-transform duration-300 hover:-translate-y-1">
+                    <div class="overflow-hidden"><img src="./public/images/porto.jpg" alt="Portfolio website screenshot" loading="lazy" class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white">Portfolio</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">This website: a single responsive page with an interactive terminal and animated woven patterns, built with HTML and Tailwind CSS and deployed to Netlify on every push.</p>
+                        <p class="mt-4 text-xs text-sky">HTML · Tailwind CSS · JavaScript · Netlify</p>
+                        <div class="mt-5 flex items-center justify-between border-t border-line pt-4">
+                            <a href="https://rivaldi12.netlify.app/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra/PORTO" target="_blank" rel="noopener" aria-label="Source on GitHub" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
                         </div>
                     </div>
-                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/ta.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <div>
-                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">TALENTA AI INDONESIA</h3>
-                            <p class="text-gray-700 text-sm mb-2">Issued by Talenta AI - 02/24</p>
-                            <a href="./public/pdf/talenta ai.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
+                </article>
+
+                <article class="spot tilt group overflow-hidden rounded-2xl border border-line bg-panel transition-transform duration-300 hover:-translate-y-1">
+                    <div class="overflow-hidden"><img src="./public/images/tryout.jpg" alt="Tryout Online screenshot" loading="lazy" class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white">Tryout Online</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">An online tryout app with category selection, randomized questions, question navigation, a 90-minute countdown, and a top 15 leaderboard.</p>
+                        <p class="mt-4 text-xs text-sky">PHP · JavaScript · JSON · Bootstrap</p>
+                        <div class="mt-5 flex items-center justify-between border-t border-line pt-4">
+                            <a href="https://luxury12.infinityfreeapp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra/TRYOUT" target="_blank" rel="noopener" aria-label="Source on GitHub" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
                         </div>
                     </div>
-                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <div>
-                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cybersecurity Associate</h3>
-                            <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 09/22</p>
-                            <a href="./public/pdf/RivaldiSyaputra-CyberOps Associa-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
-                        </div>
-                    </div>
-                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <div>
-                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cisco Certified Network Associate (CCNA2)</h3>
-                            <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 08/22</p>
-                            <a href="./public/pdf/RivaldiSyaputra-CCNA2-UNIKOM-212-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
-                        </div>
-                    </div>
-                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <div>
-                            <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cybersecurity Essentials</h3>
-                            <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 06/22</p>
-                            <a href="./public/pdf/RIVALDISYAPUTRA-2022_REKIN_CYBER-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
-                        </div>
-                    </div> 
-                    <div class="bg-gray-100 p-5 rounded-xl shadow-lg flex flex-col items-center text-center space-y-3 hover:shadow-2xl transition-shadow duration-300 transform hover:scale-105 border border-gray-200">
-                        <img src="./public/images/Cisco.png" alt="Sertifikat Icon" class="w-14 h-14 object-contain mb-1">
-                        <h3 class="text-lg font-bold mb-0.5 text-gray-900">Cisco Certified Network Associate (CCNA1)</h3>
-                        <p class="text-gray-700 text-sm mb-2">Issued by Cisco - 02/22</p>
-                        <a href="./public/pdf/RIVALDISYAPUTRA-CCNA1-UNIKOM-212-certificate.pdf" target="_blank" class="bg-blue-500 text-white px-3 py-1.5 rounded-lg font-semibold hover:bg-blue-600 transition-colors text-xs">Verification</a>
-                    </div>
-                </div>
+                </article>
             </div>
         </section>
 
-       <section id="contact" class="py-16 bg-gray-50 text-gray-800 animated-section min-h-[80vh] justify-center items-center relative flex">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10 text-gray-900 leading-tight">Contact Me</h2>
-                <div class="max-w-md mx-auto bg-white p-7 rounded-2xl shadow-xl border border-gray-200 text-center">
-                    <p class="mb-6 text-base text-gray-700">Interested in collaborating, discussing projects, or have questions? You can contact me through the following platforms:</p>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-start space-x-3 text-lg text-gray-800">
-                            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 12.713l-10.732-9.427h21.464l-10.732 9.427zm0 2.287l-12-10.46v16.173h24v-16.173l-12 10.46z"/></svg>
-                            <a href="mailto:rivaldisyaputra029@gmail.com" class="font-medium hover:text-blue-600 transition-colors">rivaldisyaputra029@gmail.com</a>
-                        </div>
-                        <div class="flex items-center justify-start space-x-3 text-lg text-gray-800">
-                            <svg class="w-6 h-6 text-gray-800" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.165 6.839 9.48.5.09.682-.217.682-.483 0-.237-.008-.867-.013-1.7c-2.782.603-3.369-1.34-3.369-1.34-.454-1.157-1.109-1.464-1.109-1.464-.905-.618.068-.606.068-.606 1.002.071 1.529 1.03 1.529 1.03.89 1.527 2.336 1.086 2.9.829.091-.643.349-1.086.635-1.337-2.22-.253-4.555-1.11-4.555-4.943 0-1.09.39-1.984 1.029-2.684-.103-.253-.447-1.272.098-2.65 0 0 .84-.27 2.75 1.025.798-.222 1.644-.333 2.489-.336.845.003 1.691.114 2.489.336 1.909-1.295 2.747-1.025 2.747-1.025.546 1.378.202 2.397.098 2.65.64.7 1.029 1.594 1.029 2.684 0 3.843-2.339 4.686-4.568 4.935.359.309.678.92.678 1.855 0 1.337-.012 2.417-.012 2.753 0 .269.18.577.688.482C21.137 20.163 24 16.419 24 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd"></path></svg>
-                            <a href="https://github.com/rivaldisyaputra" target="_blank" class="font-medium hover:text-blue-600 transition-colors">rivaldisyaputra</a>
-                        </div>
-                        <div class="flex items-center justify-start space-x-3 text-lg text-gray-800">
-                            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.23 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.73V1.73C24 .77 23.21 0 22.23 0zM7.34 20.45H3.59V9.08h3.75v11.37zM5.46 7.64c-1.2 0-2.18-.98-2.18-2.18s.98-2.18 2.18-2.18 2.18.98 2.18 2.18-.97 2.18-2.18 2.18zm15.42 12.81h-3.75v-5.75c0-1.37-.49-2.31-1.7-2.31-1.04 0-1.66.71-1.94 1.39-.1.25-.13.59-.13.93v5.74H9.68s.05-10.32 0-11.37h3.75v1.61c.49-.78 1.45-1.89 3.39-1.89 2.47 0 4.3 1.62 4.3 5.1V20.45z"/></svg>
-                            <a href="https://linkedin.com/in/rivaldis12112000" target="_blank" class="font-medium hover:text-blue-600 transition-colors">rivaldis12112000</a>
-                        </div>
-                        </div>
+        <div class="band rev" aria-hidden="true"></div>
+
+        <section id="experience" class="reveal border-y border-line bg-panel/40">
+            <div class="mx-auto max-w-6xl px-5 py-24">
+                <p class="flex items-center gap-3 text-sm text-sky"><svg class="medal h-6 w-6" aria-hidden="true"><use href="#i-medal"/></svg>04 / experience</p>
+                <h2 class="mt-2 text-3xl font-display font-normal tracking-tight text-white sm:text-4xl">Experience & education</h2>
+
+                <ol class="mt-10 max-w-3xl stagger space-y-10 border-l border-line pl-8">
+                    <li class="relative">
+                        <span class="absolute -left-[2.35rem] top-1.5 h-3 w-3 rounded-full bg-sky ring-4 ring-ink" aria-hidden="true"></span>
+                        <p class="text-xs text-sky">2019 - 2023</p>
+                        <h3 class="mt-1 text-lg font-bold text-white">Universitas Komputer Indonesia (UNIKOM)</h3>
+                        <p class="mt-1 text-sm leading-relaxed text-fog">Bachelor's degree, Computer Systems. System design and development, IT infrastructure management, data security, and problem analysis.</p>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">Head of the Leadership Organization Division, HIMA TEKKOM (2021/2022). Deputy Coordinating Minister for Character Development, BEM-U (2022/2023).</p>
+                    </li>
+                    <li class="relative">
+                        <span class="absolute -left-[2.35rem] top-1.5 h-3 w-3 rounded-full bg-sky ring-4 ring-ink" aria-hidden="true"></span>
+                        <p class="text-xs text-sky">Oct - Dec 2018</p>
+                        <h3 class="mt-1 text-lg font-bold text-white">Intern, Kejaksaan Negeri Kota Bandung</h3>
+                        <p class="mt-1 text-sm leading-relaxed text-fog">Maintained office computers and the network, and handled data entry.</p>
+                    </li>
+                    <li class="relative">
+                        <span class="absolute -left-[2.35rem] top-1.5 h-3 w-3 rounded-full bg-sky ring-4 ring-ink" aria-hidden="true"></span>
+                        <p class="text-xs text-sky">2016 - 2019</p>
+                        <h3 class="mt-1 text-lg font-bold text-white">SMKN 4 Bandung</h3>
+                        <p class="mt-1 text-sm leading-relaxed text-fog">Computer and Network Engineering. Network architecture, administration, and security, and operating system management.</p>
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <div class="band" aria-hidden="true"></div>
+
+        <section id="certificates" class="reveal mx-auto max-w-6xl px-5 py-24">
+            <p class="flex items-center gap-3 text-sm text-sky"><svg class="medal h-6 w-6" aria-hidden="true"><use href="#i-medal"/></svg>05 / certificates</p>
+            <h2 class="mt-2 text-3xl font-display font-normal tracking-tight text-white sm:text-4xl">Certificates</h2>
+
+            <ul class="mt-10 stagger grid gap-3 md:grid-cols-2">
+                <li><a href="./public/pdf/RIVALDI_SYAPUTRA_botcamp.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/hackpoint.jpg" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">Hackpoint Bootcamp 1</span><span class="block text-xs text-fog">Hackpoint · 07/2025</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+                <li><a href="./public/pdf/Cybershield%202025%20-%20E%20Certificate-13.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/hackpoint.jpg" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">Cybershield 2025</span><span class="block text-xs text-fog">Hackpoint · 04/2025</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+                <li><a href="./public/pdf/sertif%20cyber%20security.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/65406-logo-digitalent.jpg" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">Security Operations Analyst, Fresh Graduate Academy</span><span class="block text-xs text-fog">Digitalent · 04/2024</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+                <li><a href="./public/pdf/talenta%20ai.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/ta.png" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">Talenta AI Indonesia</span><span class="block text-xs text-fog">Talenta AI · 02/2024</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+                <li><a href="./public/pdf/RivaldiSyaputra-CyberOps%20Associa-certificate.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/Cisco.png" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">CyberOps Associate</span><span class="block text-xs text-fog">Course completion, Cisco Networking Academy · 09/2022</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+                <li><a href="./public/pdf/RivaldiSyaputra-CCNA2-UNIKOM-212-certificate.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/Cisco.png" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">CCNAv7: Switching, Routing, and Wireless Essentials</span><span class="block text-xs text-fog">Course completion, Cisco Networking Academy · 08/2022</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+                <li><a href="./public/pdf/RIVALDISYAPUTRA-2022_REKIN_CYBER-certificate.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/Cisco.png" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">Cybersecurity Essentials</span><span class="block text-xs text-fog">Course completion, Cisco Networking Academy · 06/2022</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+                <li><a href="./public/pdf/RIVALDISYAPUTRA-CCNA1-UNIKOM-212-certificate.pdf" target="_blank" rel="noopener" class="spot flex items-center gap-4 rounded-xl border border-line bg-panel p-4 transition-colors hover:border-sky">
+                    <img src="./public/images/Cisco.png" alt="" class="h-11 w-11 shrink-0 rounded-lg bg-white object-contain p-1">
+                    <span class="min-w-0 flex-1"><span class="block font-semibold text-white">CCNAv7: Introduction to Networks</span><span class="block text-xs text-fog">Course completion, Cisco Networking Academy · 02/2022</span></span>
+                    <svg class="h-4 w-4 shrink-0 text-fog"><use href="#i-arrow"/></svg>
+                </a></li>
+            </ul>
+        </section>
+
+        <div class="band rev" aria-hidden="true"></div>
+
+        <section id="contact" class="reveal relative overflow-hidden border-t border-line">
+            <div class="pointer-events-none absolute inset-0 flex items-center justify-center text-sky opacity-10" aria-hidden="true"><svg class="medal slow h-[34rem] w-[34rem] shrink-0"><use href="#i-medal"/></svg></div>
+            <div class="relative mx-auto max-w-3xl px-5 py-24 text-center">
+                <p class="flex items-center justify-center gap-3 text-sm text-sky"><svg class="medal h-6 w-6" aria-hidden="true"><use href="#i-medal"/></svg>06 / contact</p>
+                <h2 class="mt-2 text-3xl font-display font-normal tracking-tight text-white sm:text-5xl">Let's work together</h2>
+                <p class="mx-auto mt-4 max-w-xl text-fog">Interested in collaborating, discussing a project, or have a question? Send me an email.</p>
+                <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+                    <a href="mailto:rivaldisyaputra029@gmail.com" class="break-all rounded-full bg-sky px-6 py-3 text-sm font-bold text-ink transition-transform hover:-translate-y-0.5">rivaldisyaputra029@gmail.com</a>
+                    <button id="copy-email" type="button" data-email="rivaldisyaputra029@gmail.com" class="rounded-full border border-line px-6 py-3 text-sm font-bold text-white transition-colors hover:border-sky hover:text-sky">Copy email</button>
+                </div>
+                <div class="mt-8 flex justify-center gap-6 text-sm text-fog">
+                    <a href="https://github.com/rivaldisyaputra" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg>rivaldisyaputra</a>
+                    <a href="https://linkedin.com/in/rivaldis12112000" target="_blank" rel="noopener" class="inline-flex items-center gap-2 hover:text-sky"><svg class="h-5 w-5"><use href="#i-linkedin"/></svg>rivaldis12112000</a>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer class="bg-gray-900 text-white p-7 text-center border-t border-gray-700">
-        <p class="text-sm">&copy; 2025 Rivaldi Syaputra. All rights reserved.</p>
-        
+    <footer class="border-t border-line px-5 py-6 text-center text-xs text-fog">
+        &copy; 2026 Rivaldi Syaputra
     </footer>
 
-    <script>
-        // Mobile Menu Toggle
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-
-        // Close mobile menu when a link is clicked
-        document.querySelectorAll('#mobile-menu a').forEach(item => {
-            item.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
-            });
-        });
-
-        // Intersection Observer for Section Animations
-        const sections = document.querySelectorAll('.animated-section');
-
-        const observerOptions = {
-            root: null, // viewport
-            rootMargin: '0px',
-            threshold: 0.1 // 10% of the section must be visible
-        };
-
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target); // Stop observing once animated
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-    </script>
+    <script src="./public/js/main.js"></script>
 </body>
 </html>
