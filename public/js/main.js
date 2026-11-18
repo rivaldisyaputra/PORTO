@@ -122,6 +122,61 @@ if (weave) {
     }
 }
 
+// Hero rosette: concentric rings of woven shapes turning in alternating directions
+const rosette = $('rosette');
+if (rosette) {
+    const ring = (r, n, shape, seconds, reverse) => {
+        let items = '';
+        for (let i = 0; i < n; i++) items += `<g transform="rotate(${(360 / n) * i}) translate(0 ${-r})">${shape}</g>`;
+        return `<svg viewBox="-300 -300 600 600" style="animation-duration:${seconds}s;animation-direction:${reverse ? 'reverse' : 'normal'}"><circle r="${r}"/>${items}</svg>`;
+    };
+    rosette.innerHTML =
+        ring(276, 48, '<path d="M-9 8 0-8 9 8Z"/>', 140, false) +
+        ring(228, 24, '<path d="M0-16 12 0 0 16-12 0Z"/><path class="gold" d="M0-6 5 0 0 6-5 0Z"/>', 100, true) +
+        ring(172, 16, '<path d="M0-20 15 0 0 20-15 0Z"/><path d="M0-10 7 0 0 10-7 0Z"/>', 80, false) +
+        ring(112, 8, '<path d="M0-26 20 0 0 26-20 0Z"/><path class="gold" d="M0-8 6 0 0 8-6 0Z"/>', 60, true);
+}
+
+// Stats count up from zero the first time they scroll into view (the real number is already in the HTML)
+if (!reducedMotion) {
+    const counter = new IntersectionObserver((entries) => {
+        entries.forEach(({ isIntersecting, target }) => {
+            if (!isIntersecting) return;
+            counter.unobserve(target);
+            const end = +target.dataset.count, t0 = performance.now();
+            const tick = (t) => {
+                const k = Math.min(1, (t - t0) / 1200);
+                target.textContent = Math.round(end * (1 - (1 - k) ** 3));
+                if (k < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        });
+    });
+    document.querySelectorAll('[data-count]').forEach((el) => counter.observe(el));
+}
+
+// Diamond cursor: replaces the system cursor for mouse users and opens into a ring over anything clickable
+const cursor = $('cursor');
+if (cursor && !reducedMotion && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    let cx = 0, cy = 0, tx = 0, ty = 0, big = false, moving = false;
+    const step = () => {
+        cx += (tx - cx) * 0.45; cy += (ty - cy) * 0.45; // it is the only cursor now, so it must stay close to the real position
+        cursor.style.transform = `translate(${cx}px, ${cy}px) rotate(45deg) scale(${big ? 2.4 : 1})`;
+        moving = Math.abs(tx - cx) + Math.abs(ty - cy) > 0.3;
+        if (moving) requestAnimationFrame(step);
+    };
+    addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        tx = e.clientX; ty = e.clientY;
+        big = !!e.target.closest?.('a, button');
+        cursor.classList.toggle('big', big);
+        cursor.style.opacity = 1;
+        document.documentElement.classList.add('has-cursor'); // hide the system cursor only once ours is on screen
+        if (!moving) { moving = true; requestAnimationFrame(step); }
+    });
+    document.documentElement.addEventListener('pointerleave', () => { cursor.style.opacity = 0; });
+}
+
 // Skill tabs
 const tabs = document.querySelectorAll('[role="tab"]');
 const showTab = (tab) => {
