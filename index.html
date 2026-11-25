@@ -54,7 +54,7 @@
         .stagger > :nth-child(2) { transition-delay: .08s; } .stagger > :nth-child(3) { transition-delay: .16s; }
         .stagger > :nth-child(4) { transition-delay: .24s; } .stagger > :nth-child(5) { transition-delay: .32s; }
         .stagger > :nth-child(6) { transition-delay: .40s; } .stagger > :nth-child(7) { transition-delay: .48s; }
-        .stagger > :nth-child(8) { transition-delay: .56s; }
+        .stagger > :nth-child(8) { transition-delay: .56s; } .stagger > :nth-child(9) { transition-delay: .64s; }
 
         /* Hero items rise in on load; delay is set inline per item */
         .js .rise { animation: rise .8s cubic-bezier(.2, .7, .2, 1) backwards; }
@@ -65,6 +65,7 @@
         [data-panel] li:nth-child(2) { animation-delay: .05s; } [data-panel] li:nth-child(3) { animation-delay: .10s; }
         [data-panel] li:nth-child(4) { animation-delay: .15s; } [data-panel] li:nth-child(5) { animation-delay: .20s; }
         [data-panel] li:nth-child(6) { animation-delay: .25s; } [data-panel] li:nth-child(7) { animation-delay: .30s; }
+        [data-panel] li:nth-child(8) { animation-delay: .35s; } [data-panel] li:nth-child(9) { animation-delay: .40s; }
         @keyframes pop { from { opacity: 0; transform: scale(.92) translateY(6px); } }
 
 
@@ -141,6 +142,15 @@
         }
         .cursor.big { background: transparent; } /* over links and buttons it opens into a ring */
 
+        /* Project details: shown inline when JS is missing; with JS they move into the dialog and a Details button appears */
+        .detail-btn { display: none; }
+        .js .detail-btn { display: inline-flex; }
+        .js article .detail { display: none; }
+        dialog[open] { animation: rise .3s ease-out; }
+        /* The dialog sits in the browser's top layer, above our diamond cursor, so give the system cursor back while it is open */
+        .modal-open, .modal-open * { cursor: auto !important; }
+        .modal-open .cursor { display: none; }
+
         nav a[aria-current="true"] { color: #7cc4ff; }
         [role="tab"][aria-selected="true"] { background: #7cc4ff; color: #071226; border-color: #7cc4ff; }
 
@@ -150,7 +160,7 @@
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .js .reveal, .js .reveal .stagger > * { opacity: 1; transform: none; transition: none; }
-            .js .rise, .js [data-panel] li, .caret::after, .weave, .band::before, .medal, .rosette svg, .marquee-track, .dot::after, .tumpal::before, .group:hover .strip { animation: none; }
+            .js .rise, .js [data-panel] li, .caret::after, dialog[open], .weave, .band::before, .medal, .rosette svg, .marquee-track, .dot::after, .tumpal::before, .group:hover .strip { animation: none; }
             .js .reveal .tlh::before { transform: none; transition: none; }
         }
     </style>
@@ -214,7 +224,7 @@
                     <div style="animation-delay: .4s" class="rise mt-12 flex gap-10 border-t border-line pt-6">
                         <div><p class="font-display text-4xl text-white" data-count="4">4</p><p class="mt-1 text-xs text-fog">Live projects</p></div>
                         <div><p class="font-display text-4xl text-white" data-count="8">8</p><p class="mt-1 text-xs text-fog">Certificates</p></div>
-                        <div><p class="font-display text-4xl text-white" data-count="5">5</p><p class="mt-1 text-xs text-fog">Skill areas</p></div>
+                        <div><p class="font-display text-4xl text-white" data-count="6">6</p><p class="mt-1 text-xs text-fog">Skill areas</p></div>
                     </div>
                 </div>
 
@@ -299,57 +309,239 @@
             <div class="stagger mt-10 space-y-8">
                 <article class="spot group grid overflow-hidden rounded-2xl border border-line bg-panel md:grid-cols-2">
                     <div class="strip md:col-span-2" aria-hidden="true"></div>
-                    <div class="overflow-hidden"><img src="./public/images/senam-otak.jpg" alt="Tryout Online V 1.0.0 screenshot" loading="lazy" class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[18rem]"></div>
+                                        <div class="overflow-hidden"><img src="./public/images/proj-erp-backoffice.jpg" alt="Backoffice sign-in page" loading="lazy" class="h-56 w-full bg-[#03043a] object-contain transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[18rem]"></div>
                     <div class="flex flex-col justify-center p-7 md:p-10">
                         <p class="font-display text-5xl text-sky/40" aria-hidden="true">01</p>
-                        <h3 class="mt-3 text-xl font-bold text-white">Tryout Online V 1.0.0</h3>
-                        <p class="mt-3 text-sm leading-relaxed text-fog">A responsive web-based practice platform with multiple test modules: Tryout, Quiz, Precision games, and a Color Blindness Test.</p>
-                        <p class="mt-4 text-xs text-sky">React · JavaScript · JSON · GitHub Actions · AWS</p>
-                        <div class="mt-6 flex items-center gap-5">
-                            <a href="https://senam-otak.my.id/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 rounded-full border border-line px-4 py-2 text-sm font-bold text-white transition-colors hover:border-sky hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
-                            <a href="https://github.com/rivaldisyaputra" target="_blank" rel="noopener" aria-label="GitHub profile" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
+                        <h3 class="mt-3 text-xl font-bold text-white">ERP Backoffice</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-fog">Web backoffice for a multi-outlet F&amp;B business: products and menus, inventory, stock transfer and stock opname, delivery orders and goods receipt, P&amp;L and shrinkage reports, users, and an audit log.</p>
+                        <p class="mt-3 text-sm leading-relaxed text-fog">My work focused on role-based access, the inventory and stock opname modules, reporting with Excel export, and audit logging.</p>
+                        <p class="mt-4 text-xs text-sky">Next.js · React · TypeScript · Tailwind CSS · Recharts · Vitest</p>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>The web backoffice a multi-outlet F&amp;B business uses to run daily operations, from the menu to the monthly numbers. One login covers every outlet and region the user is allowed to see.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Products, categories, master menu, and ingredients</li><li>Outlet and central-kitchen inventory with stock transfer and stock opname</li><li>Delivery orders, goods receipt, and outlet purchasing</li><li>Orders, promos, and shift management</li><li>P&amp;L, shrinkage, and other reports, with charts and Excel export</li><li>Users, regions, outlets, approvals, and a full audit log</li></ul>
+                            <h4 class="text-xs text-sky">My role</h4>
+                            <p>Built with a small team. My work focused on role-based access per page and action, the inventory and stock opname modules, reporting with Excel export, and audit logging.</p>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>Next.js 16, React 19, TypeScript, Tailwind CSS, shadcn/ui and Radix, Recharts, ExcelJS, Vitest and Testing Library. Installable as a PWA.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>In production use. Internal system, so there is no public link.</p>
                         </div>
+                        <div class="mt-6 flex flex-wrap items-center gap-4"><button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button><p class="text-xs text-fog">Internal system, built with a team. No public link.</p></div>
                     </div>
                 </article>
                 <article class="spot group grid overflow-hidden rounded-2xl border border-line bg-panel md:grid-cols-2">
                     <div class="strip md:col-span-2" aria-hidden="true"></div>
-                    <div class="overflow-hidden md:order-2"><img src="./public/images/web1.png" alt="Hospital recommendation website screenshot" loading="lazy" class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[18rem]"></div>
+                    <!-- API docs with the title cropped out, so the internal system is not named -->
+                    <div class="overflow-hidden md:order-2"><img src="./public/images/proj-erp-api.jpg" alt="API documentation listing REST endpoints" loading="lazy" class="h-56 w-full object-cover object-left-top transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[18rem]"></div>
                     <div class="flex flex-col justify-center p-7 md:p-10">
                         <p class="font-display text-5xl text-sky/40" aria-hidden="true">02</p>
-                        <h3 class="mt-3 text-xl font-bold text-white">Hospital recommendations for BPJS eye patients</h3>
-                        <p class="mt-3 text-sm leading-relaxed text-fog">A recommendation system that uses the Weighted Product method to help BPJS participants in Bandung choose a hospital for eye diseases.</p>
+                        <h3 class="mt-3 text-xl font-bold text-white">ERP API</h3>
+                        <p class="mt-3 text-sm leading-relaxed text-fog">The REST API behind the backoffice and the point-of-sale app: authentication, role permissions, rate limiting, scheduled jobs, PDF documents, and file storage.</p>
+                        <p class="mt-3 text-sm leading-relaxed text-fog">My work focused on authentication and permissions, stock and reporting endpoints, database migrations, and caching.</p>
+                        <p class="mt-4 text-xs text-sky">NestJS · Prisma · PostgreSQL · Redis · JWT · Swagger · Docker</p>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>The REST API behind the backoffice and the point-of-sale app. It owns the business rules, the database, and who is allowed to do what.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>JWT authentication with refresh tokens and role permissions</li><li>Rate limiting, security headers, and request validation</li><li>Stock, order, and finance endpoints, including P&amp;L</li><li>Scheduled jobs: timed price and region changes, and a report cache warmer</li><li>PDF documents, image processing, and S3-compatible file storage</li><li>API documentation with Swagger, protected by a login</li></ul>
+                            <h4 class="text-xs text-sky">My role</h4>
+                            <p>Built with a small team. My work focused on authentication and permissions, stock and reporting endpoints, database migrations, caching, and tests.</p>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>NestJS, Prisma, PostgreSQL, Redis, Passport JWT, Swagger, Docker.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>In production use. Internal system, so there is no public link.</p>
+                        </div>
+                        <div class="mt-6 flex flex-wrap items-center gap-4"><button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button><p class="text-xs text-fog">Internal system, built with a team. No public link.</p></div>
+                    </div>
+                </article>
+            </div>
+            <!-- The rest as a compact grid, newest first -->
+            <div class="stagger mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/proj-undakan.jpg" alt="Undakan tryout platform home page" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">03</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Undakan</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">A tryout platform for the SKD CPNS and Kedinasan exams: 110 questions on a single 100-minute timer, a flag-for-review button, explanations for every question, and passwordless email sign-in. Admin runs on Payload CMS inside the same app.</p>
+                        <p class="mt-4 text-xs text-sky">Next.js · Payload CMS · PostgreSQL · TypeScript</p>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>A practice platform for the SKD exam used in CPNS and Kedinasan selection. The goal is a tryout that feels like exam day and still loads fast on a phone.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>110 questions across three subtests (TWK, TIU, TKP) on one 100-minute timer</li><li>Flag-for-review button, question navigation, and autosave</li><li>Explanations for every question and a result page</li><li>Passwordless sign-in by email</li><li>Admin inside the same app, with views for orders, attempts, users, and reconciliation</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>Next.js 16, Payload CMS 3, PostgreSQL 16, TypeScript.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>Phase 1, in development. Not public yet.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <span class="text-xs text-fog">In development, not public yet</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/proj-guppy.jpg" alt="Guppy Pasundan storefront home page" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">04</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Guppy Pasundan</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">An online storefront for a guppy breeder in Bandung: catalogue, cart, gallery, and an admin area for managing products.</p>
+                        <p class="mt-4 text-xs text-sky">Next.js · Supabase · TypeScript</p>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>An online storefront for a guppy breeder in Bandung, so buyers can browse the fish and order without going through chat first.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Catalogue with product pages</li><li>Shopping cart</li><li>Gallery, about, and FAQ pages</li><li>Admin area for managing products, behind a login</li><li>Sitemap and robots rules for search engines</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>Next.js 16, Supabase, TypeScript, Vitest.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>In development. Not public yet.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <span class="text-xs text-fog">In development, not public yet</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/proj-temanair.jpg" alt="Teman Air swimming school landing page" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">05</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Teman Air</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">A landing page for a swimming school, built without dependencies: responsive layout, SEO structured data, offline support through a service worker, and a sign-up form that opens WhatsApp.</p>
+                        <p class="mt-4 text-xs text-sky">HTML · CSS · JavaScript · PWA</p>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>A landing page for a swimming school that teaches children and adults. It is written without any framework or external dependency, so it stays light.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Responsive layout for phone, tablet, and desktop</li><li>Sign-up form that opens WhatsApp with the details filled in</li><li>Works offline through a service worker</li><li>Structured data, Open Graph tags, sitemap, and robots rules for SEO</li><li>Locally hosted fonts, a privacy policy page, and a custom 404 page</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>HTML, CSS, and JavaScript. Installable as a PWA.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>Finished locally. Not deployed publicly.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <span class="text-xs text-fog">Not deployed publicly</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/proj-undangan.jpg" alt="Digital wedding invitation cover screen" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">06</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Digital wedding invitation</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">A single-file wedding invitation with a cover screen, photo gallery, and background music. A small Python script bundles the page and its assets into one HTML file.</p>
+                        <p class="mt-4 text-xs text-sky">HTML · CSS · JavaScript · Python</p>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>A wedding invitation that opens from a single link. Everything ships as one HTML file, so it can be hosted anywhere or sent directly.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Cover screen that greets the guest before opening</li><li>Photo gallery</li><li>Background music</li><li>A small Python script that bundles the page, photos, and music into one file</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>HTML, CSS, JavaScript, and Python for the build step.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>Private. Shared by link only.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <span class="text-xs text-fog">Private, shared by link only</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/senam-otak.jpg" alt="Tryout Online V 1.0.0 screenshot" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">07</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Tryout Online V 1.0.0</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">A responsive web-based practice platform with multiple test modules: Tryout, Quiz, Precision games, and a Color Blindness Test.</p>
+                        <p class="mt-4 text-xs text-sky">React · JavaScript · JSON · GitHub Actions · AWS</p>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>A practice site with several kinds of tests in one place, rebuilt in React from an earlier PHP version.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Tryout: 90 minutes, 40 questions</li><li>Quiz: 10 questions without a time limit</li><li>Precision games for focus and memory</li><li>Color blindness test</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>React, JavaScript, JSON data. Deployed to AWS through GitHub Actions.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>Live.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <a href="https://senam-otak.my.id/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra" target="_blank" rel="noopener" aria-label="GitHub profile" class="ml-auto text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
+                        </div>
+                    </div>
+                </article>
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/web1.png" alt="Hospital recommendation website screenshot" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">08</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Hospital recommendations for BPJS eye patients</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">A recommendation system that uses the Weighted Product method to help BPJS participants in Bandung choose a hospital for eye diseases.</p>
                         <p class="mt-4 text-xs text-sky">PHP · MySQL · HTML · CSS</p>
-                        <div class="mt-6 flex items-center gap-5">
-                            <a href="https://rekomendasi.infinityfreeapp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 rounded-full border border-line px-4 py-2 text-sm font-bold text-white transition-colors hover:border-sky hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
-                            <a href="https://github.com/rivaldisyaputra" target="_blank" rel="noopener" aria-label="GitHub profile" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>A decision-support website that ranks hospitals for BPJS participants with eye diseases in Bandung. It began as a research project.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Ranking calculated with the Weighted Product method</li><li>Criteria and their weights managed from an admin area</li><li>Hospital and alternative data management</li><li>Result table that shows the ranking and the scores behind it</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>PHP, MySQL, HTML, CSS.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>Live.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <a href="https://rekomendasi.infinityfreeapp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra" target="_blank" rel="noopener" aria-label="GitHub profile" class="ml-auto text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
                         </div>
                     </div>
                 </article>
-                <article class="spot group grid overflow-hidden rounded-2xl border border-line bg-panel md:grid-cols-2">
-                    <div class="strip md:col-span-2" aria-hidden="true"></div>
-                    <div class="overflow-hidden"><img src="./public/images/porto.jpg" alt="Portfolio website screenshot" loading="lazy" class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[18rem]"></div>
-                    <div class="flex flex-col justify-center p-7 md:p-10">
-                        <p class="font-display text-5xl text-sky/40" aria-hidden="true">03</p>
-                        <h3 class="mt-3 text-xl font-bold text-white">Portfolio</h3>
-                        <p class="mt-3 text-sm leading-relaxed text-fog">This website: a single responsive page with an interactive terminal and animated woven patterns, built with HTML and Tailwind CSS and deployed to Netlify on every push.</p>
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/porto.jpg" alt="Portfolio website screenshot" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">09</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Portfolio</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">This website: a single responsive page with an interactive terminal and animated woven patterns, built with HTML and Tailwind CSS and deployed to Netlify on every push.</p>
                         <p class="mt-4 text-xs text-sky">HTML · Tailwind CSS · JavaScript · Netlify</p>
-                        <div class="mt-6 flex items-center gap-5">
-                            <a href="https://rivaldi12.netlify.app/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 rounded-full border border-line px-4 py-2 text-sm font-bold text-white transition-colors hover:border-sky hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
-                            <a href="https://github.com/rivaldisyaputra/PORTO" target="_blank" rel="noopener" aria-label="Source on GitHub" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>This website. One page, no build step, drawn around a woven-pattern theme.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Terminal in the hero that answers commands and jumps to sections</li><li>Woven background, rosette, and section bands drawn in SVG and canvas</li><li>Skill tabs, project details, and a copy-email button</li><li>Still readable if JavaScript fails, and motion is reduced for visitors who ask for it</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>HTML, Tailwind CSS, JavaScript. Deployed to Netlify on every push.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>Live.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <a href="https://rivaldi12.netlify.app/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra/PORTO" target="_blank" rel="noopener" aria-label="Source on GitHub" class="ml-auto text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
                         </div>
                     </div>
                 </article>
-                <article class="spot group grid overflow-hidden rounded-2xl border border-line bg-panel md:grid-cols-2">
-                    <div class="strip md:col-span-2" aria-hidden="true"></div>
-                    <div class="overflow-hidden md:order-2"><img src="./public/images/tryout.jpg" alt="Tryout Online screenshot" loading="lazy" class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full md:min-h-[18rem]"></div>
-                    <div class="flex flex-col justify-center p-7 md:p-10">
-                        <p class="font-display text-5xl text-sky/40" aria-hidden="true">04</p>
-                        <h3 class="mt-3 text-xl font-bold text-white">Tryout Online</h3>
-                        <p class="mt-3 text-sm leading-relaxed text-fog">An online tryout app with category selection, randomized questions, question navigation, a 90-minute countdown, and a top 15 leaderboard.</p>
+                <article class="spot tilt group flex flex-col overflow-hidden rounded-2xl border border-line bg-panel">
+                    <div class="strip" aria-hidden="true"></div>
+                    <div class="overflow-hidden"><img src="./public/images/tryout.jpg" alt="Tryout Online screenshot" loading="lazy" class="h-44 w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"></div>
+                    <div class="flex flex-1 flex-col p-6">
+                        <p class="font-display text-3xl text-sky/40" aria-hidden="true">10</p>
+                        <h3 class="mt-2 text-lg font-bold text-white">Tryout Online</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">An online tryout app with category selection, randomized questions, question navigation, a 90-minute countdown, and a top 15 leaderboard.</p>
                         <p class="mt-4 text-xs text-sky">PHP · JavaScript · JSON · Bootstrap</p>
-                        <div class="mt-6 flex items-center gap-5">
-                            <a href="https://luxury12.infinityfreeapp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 rounded-full border border-line px-4 py-2 text-sm font-bold text-white transition-colors hover:border-sky hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
-                            <a href="https://github.com/rivaldisyaputra/TRYOUT" target="_blank" rel="noopener" aria-label="Source on GitHub" class="text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
+                        <div class="detail mt-4 space-y-3 border-t border-line pt-4 text-sm leading-relaxed text-fog">
+                            <p>The first version of the tryout site, written in PHP with questions stored as JSON.</p>
+                            <h4 class="text-xs text-sky">Features</h4>
+                            <ul class="list-disc space-y-1 pl-5"><li>Category selection and participant name input</li><li>Randomized questions with question navigation and progress tracking</li><li>90-minute countdown</li><li>Results saved to a top 15 leaderboard</li><li>A quiz and a missing-letter game</li></ul>
+                            <h4 class="text-xs text-sky">Stack</h4>
+                            <p>PHP, JavaScript, JSON, Bootstrap.</p>
+                            <h4 class="text-xs text-sky">Status</h4>
+                            <p>Live.</p>
+                        </div>
+                        <div class="mt-auto flex items-center gap-4 pt-5">
+                            <button type="button" data-detail class="detail-btn items-center gap-1 rounded-full border border-line px-3.5 py-1.5 text-xs font-bold text-white transition-colors hover:border-sky hover:text-sky">Details</button>
+                            <a href="https://luxury12.infinityfreeapp.com/" target="_blank" rel="noopener" class="inline-flex items-center gap-1 text-sm font-bold text-white hover:text-sky">Live site <svg class="h-4 w-4"><use href="#i-arrow"/></svg></a>
+                            <a href="https://github.com/rivaldisyaputra/TRYOUT" target="_blank" rel="noopener" aria-label="Source on GitHub" class="ml-auto text-fog hover:text-sky"><svg class="h-5 w-5"><use href="#i-github"/></svg></a>
                         </div>
                     </div>
                 </article>
@@ -366,6 +558,7 @@
                     <p class="mt-3 text-fog">Pick a category.</p>
                     <div class="mt-8 flex flex-wrap gap-2 lg:flex-col" role="tablist" aria-label="Skill categories">
                         <button role="tab" aria-selected="true" data-tab="ai" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors lg:rounded-xl lg:px-5 lg:py-3 lg:text-left">AI & Prompting</button>
+                        <button role="tab" aria-selected="false" data-tab="erp" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors lg:rounded-xl lg:px-5 lg:py-3 lg:text-left">Full-stack & ERP</button>
                         <button role="tab" aria-selected="false" data-tab="devops" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors lg:rounded-xl lg:px-5 lg:py-3 lg:text-left">DevOps & Monitoring</button>
                         <button role="tab" aria-selected="false" data-tab="net" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors lg:rounded-xl lg:px-5 lg:py-3 lg:text-left">Networking & Security</button>
                         <button role="tab" aria-selected="false" data-tab="web" class="rounded-full border border-line px-4 py-2 text-sm font-semibold text-fog transition-colors lg:rounded-xl lg:px-5 lg:py-3 lg:text-left">Web</button>
@@ -378,6 +571,17 @@
                         <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Prompt design</li>
                         <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">System instructions</li>
                         <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">AI-assisted workflows</li>
+                    </ul>
+                    <ul data-panel="erp" role="tabpanel" class="flex flex-wrap gap-3">
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Next.js & React (TypeScript)</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">NestJS REST APIs</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Prisma & PostgreSQL</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Redis caching</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Authentication & role-based access</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Inventory & stock opname modules</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">P&L reporting & Excel export</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Audit logging</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Automated tests (Vitest)</li>
                     </ul>
                     <ul data-panel="devops" role="tabpanel" class="flex flex-wrap gap-3">
                         <li class="flex items-center gap-3 rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white"><img src="./public/images/docker.png" alt="" class="h-7 w-7 rounded bg-white object-contain p-0.5">Docker & Docker Compose</li>
@@ -407,6 +611,8 @@
                     <ul data-panel="support" role="tabpanel" class="flex flex-wrap gap-3">
                         <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Hardware & software troubleshooting</li>
                         <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">User support</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">CCTV systems</li>
+                        <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Vendor application training</li>
                         <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Git & GitHub</li>
                         <li class="rounded-xl border border-line bg-ink px-4 py-3 text-sm font-medium text-white">Netlify</li>
                     </ul>
@@ -421,7 +627,7 @@
                 <p class="flex items-center gap-3 text-sm text-sky"><svg class="medal h-6 w-6" aria-hidden="true"><use href="#i-medal"/></svg>04 / experience</p>
                 <h2 class="mt-2 font-display text-3xl font-normal tracking-tight text-white sm:text-4xl">Experience & education</h2>
                 <!-- Left to right, oldest first -->
-                <ol class="stagger mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+                <ol class="stagger mt-14 grid gap-10 md:grid-cols-2 md:gap-x-8 md:gap-y-12 lg:grid-cols-3">
                     <li class="tlh relative border-t border-line pt-8">
                         <span class="dot absolute -top-[7px] left-0 h-3 w-3 rotate-45 rounded-[2px] bg-sky" aria-hidden="true"></span>
                         <p class="text-xs text-sky">2016 - 2019</p>
@@ -440,6 +646,18 @@
                         <h3 class="mt-1 text-lg font-bold text-white">Universitas Komputer Indonesia (UNIKOM)</h3>
                         <p class="mt-2 text-sm leading-relaxed text-fog">Bachelor's degree, Computer Systems. System design and development, IT infrastructure management, data security, and problem analysis.</p>
                         <p class="mt-2 text-sm leading-relaxed text-fog">Head of the Leadership Organization Division, HIMA TEKKOM (2021/2022). Deputy Coordinating Minister for Character Development, BEM-U (2022/2023).</p>
+                    </li>
+                    <li class="tlh relative border-t border-line pt-8">
+                        <span class="dot absolute -top-[7px] left-0 h-3 w-3 rotate-45 rounded-[2px] bg-sky" aria-hidden="true"></span>
+                        <p class="text-xs text-sky">Sep - Dec 2025</p>
+                        <h3 class="mt-1 text-lg font-bold text-white">IT Support, F&amp;B retail company</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">Hardware and software maintenance, CCTV systems, and training staff on vendor applications.</p>
+                    </li>
+                    <li class="tlh relative border-t border-line pt-8">
+                        <span class="dot absolute -top-[7px] left-0 h-3 w-3 rotate-45 rounded-[2px] bg-sky" aria-hidden="true"></span>
+                        <p class="text-xs text-sky">Jan 2026 - Present</p>
+                        <h3 class="mt-1 text-lg font-bold text-white">Full-stack Developer, F&amp;B retail company</h3>
+                        <p class="mt-2 text-sm leading-relaxed text-fog">Build and maintain an internal ERP backoffice and its API with Next.js, NestJS, Prisma, and PostgreSQL: role-based access, inventory and stock opname, P&amp;L reporting, and audit logs.</p>
                     </li>
                 </ol>
             </div>
@@ -515,6 +733,19 @@
             </div>
         </section>
     </main>
+
+    <!-- One shared dialog; main.js fills it from the clicked card's .detail block -->
+    <dialog id="project-dialog" aria-labelledby="pd-title" class="m-auto w-[min(46rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-line bg-panel p-0 text-slate-200 backdrop:bg-black/70">
+        <div class="strip" aria-hidden="true"></div>
+        <div class="max-h-[85vh] overflow-y-auto p-6 sm:p-8">
+            <div class="flex items-start justify-between gap-4">
+                <h3 id="pd-title" class="font-display text-3xl text-white"></h3>
+                <button id="pd-close" type="button" aria-label="Close" class="shrink-0 rounded-full border border-line px-3 py-1 text-sm text-white transition-colors hover:border-sky hover:text-sky">✕</button>
+            </div>
+            <img id="pd-img" alt="" class="mt-5 w-full rounded-xl border border-line">
+            <div id="pd-body" class="mt-5 space-y-3 text-sm leading-relaxed text-fog"></div>
+        </div>
+    </dialog>
 
     <div class="tumpal" aria-hidden="true"></div>
     <footer class="border-t border-line px-5 py-6 text-center text-xs text-fog">

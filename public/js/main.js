@@ -177,6 +177,24 @@ if (cursor && !reducedMotion && matchMedia('(hover: hover) and (pointer: fine)')
     document.documentElement.addEventListener('pointerleave', () => { cursor.style.opacity = 0; });
 }
 
+// Project details: a click on Details copies that card's .detail block into the shared dialog
+const dialog = $('project-dialog');
+if (dialog?.showModal) {
+    document.querySelectorAll('[data-detail]').forEach((btn) => btn.addEventListener('click', () => {
+        const card = btn.closest('article');
+        const img = card.querySelector('img');
+        $('pd-title').textContent = card.querySelector('h3').textContent;
+        $('pd-img').src = img.src;
+        $('pd-img').alt = img.alt;
+        $('pd-body').innerHTML = card.querySelector('.detail').innerHTML; // our own static markup, never visitor input
+        document.documentElement.classList.add('modal-open');
+        dialog.showModal();
+    }));
+    $('pd-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); }); // a click on the backdrop lands on the dialog itself
+    dialog.addEventListener('close', () => document.documentElement.classList.remove('modal-open'));
+}
+
 // Skill tabs
 const tabs = document.querySelectorAll('[role="tab"]');
 const showTab = (tab) => {
@@ -214,9 +232,9 @@ const CV = './public/pdf/CV_Rivaldi%20Syaputra_ATS.pdf';
 const commands = {
     help: { text: 'Commands: about, skills, projects, experience, certs, contact, cv, clear' },
     about: { text: 'AI Prompt Engineer & IT Support, based in Bandung, Indonesia.', go: 'about' },
-    skills: { text: 'AI prompting, DevOps & monitoring, networking, web, IT support.', go: 'skills' },
-    projects: { text: 'Four web projects, all live.', go: 'projects' },
-    experience: { text: 'UNIKOM (Computer Systems), internship, SMKN 4 Bandung.', go: 'experience' },
+    skills: { text: 'AI prompting, full-stack & ERP, DevOps & monitoring, networking, web, IT support.', go: 'skills' },
+    projects: { text: 'Ten projects: two internal ERP systems, four in progress or private, four live.', go: 'projects' },
+    experience: { text: 'Full-stack developer since 2026, IT support before that, UNIKOM (Computer Systems), SMKN 4 Bandung.', go: 'experience' },
     certs: { text: 'Eight certificates: Cisco Networking Academy, Hackpoint, Digitalent, Talenta AI.', go: 'certificates' },
     contact: { text: 'rivaldisyaputra029@gmail.com', go: 'contact' },
     cv: { text: 'Opening CV in a new tab.', open: CV },
