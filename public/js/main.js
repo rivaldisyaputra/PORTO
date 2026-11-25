@@ -228,11 +228,11 @@ copyBtn.addEventListener('click', async () => {
 // Terminal
 const out = $('term-out');
 const input = $('term-in');
-const CV = './public/pdf/CV_Rivaldi%20Syaputra_ATS.pdf';
+const CV = './public/pdf/CV_Rivaldi_Syaputra_EN.pdf';
 const commands = {
     help: { text: 'Commands: about, skills, projects, experience, certs, contact, cv, clear' },
-    about: { text: 'AI Prompt Engineer & IT Support, based in Bandung, Indonesia.', go: 'about' },
-    skills: { text: 'AI prompting, full-stack & ERP, DevOps & monitoring, networking, web, IT support.', go: 'skills' },
+    about: { text: 'Full-stack Developer & IT Support, based in Bandung, Indonesia.', go: 'about' },
+    skills: { text: 'Full-stack & ERP, AI prompting, DevOps & monitoring, networking, web, IT support.', go: 'skills' },
     projects: { text: 'Ten projects: two internal ERP systems, four in progress or private, four live.', go: 'projects' },
     experience: { text: 'Full-stack developer since 2026, IT support before that, UNIKOM (Computer Systems), SMKN 4 Bandung.', go: 'experience' },
     certs: { text: 'Eight certificates: Cisco Networking Academy, Hackpoint, Digitalent, Talenta AI.', go: 'certificates' },
@@ -284,5 +284,5 @@ document.querySelectorAll('[data-cmd]').forEach((b) => b.addEventListener('click
 out.textContent = ''; // drop the no-JS fallback message
 busy = busy
     .then(() => print('› whoami', 'text-sky'))
-    .then(() => print('Rivaldi Syaputra. I design prompts and keep systems running.', 'text-fog'))
+    .then(() => print('Rivaldi Syaputra. I build business systems and keep them running.', 'text-fog'))
     .then(() => print('Type "help" or tap a command below.', 'text-fog'));
