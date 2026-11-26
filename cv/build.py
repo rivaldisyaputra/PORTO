@@ -6,35 +6,34 @@ HERE = pathlib.Path(__file__).parent
 PDF_DIR = HERE.parent / 'public' / 'pdf'
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
-CONTACT = ['rivaldisyaputra029@gmail.com', 'linkedin.com/in/rivaldis12112000', 'github.com/rivaldisyaputra', 'rivaldi12.netlify.app']
+CONTACT = ['+62 896-5575-6358', 'rivaldisyaputra029@gmail.com', 'linkedin.com/in/rivaldis12112000', 'github.com/rivaldisyaputra', 'rivaldi12.netlify.app']
 
 DATA = {
  'en': dict(
   file='CV_Rivaldi_Syaputra_EN', lang='en', title='Full-stack Developer & IT Support', city='Bandung, Indonesia',
   h=dict(summary='Summary', exp='Work Experience', proj='Projects', edu='Education', skills='Skills', cert='Certifications', org='Organizations'),
-  summary='Full-stack developer with a networking and IT support background. I build and maintain an ERP backoffice and REST API '
-          '(Next.js, NestJS, Prisma, PostgreSQL) for a multi-outlet F&B company, covering access control, inventory, and financial '
-          'reporting. Comfortable from the database to deployment: Linux, Docker, and CI/CD.',
+  summary='Full-stack developer with a networking and IT support background. I build and maintain the ERP backoffice and REST API '
+          '(Next.js, NestJS, Prisma, PostgreSQL) used by 300+ people across 130+ outlets of an F&B company, covering access control, '
+          'inventory, and financial reporting. Comfortable from the database to deployment: Linux, Docker, and CI/CD.',
   exp=[
    ('Full-stack Developer', 'Exo Drinks', 'Jan 2026 - Present', [
-    'Build and maintain the company ERP backoffice (Next.js 16, React 19, TypeScript) and its REST API (NestJS, Prisma, PostgreSQL), used across outlets, as part of a small development team.',
+    'Build and maintain the company ERP backoffice (Next.js 16, React 19, TypeScript) and its REST API (NestJS, Prisma, PostgreSQL), used by 300+ people across 130+ outlets, as part of a small development team.',
     'Designed role-based access control down to page and action level, on JWT authentication with refresh tokens.',
     'Developed the inventory modules: outlet and central-kitchen stock, stock transfer, and stock opname.',
     'Built P&L and shrinkage reports with charts and Excel export, backed by Redis caching and a scheduled cache warmer.',
     'Implemented audit logging so every data change can be traced to a user and a time.',
-    'Wrote database migrations and automated tests; about 600 commits across the backoffice and API repositories.']),
+    'Wrote database migrations and automated tests for the API and the backoffice.']),
    ('IT Support', 'Exo Drinks', 'Sep 2025 - Dec 2025', [
     'Maintained company hardware and software, and resolved day-to-day user issues.',
-    'Maintained the CCTV systems.',
-    'Trained staff to use vendor applications.']),
-   ('Intern', 'Kejaksaan Negeri Kota Bandung', 'Oct 2018 - Dec 2018', [
-    'Maintained office computers and the network, and handled data entry.']),
+    'Maintained the CCTV systems and trained staff to use vendor applications.']),
+   ('Freelance Web Developer & Owner', 'Guppy Pasundan', '2023 - 2025', [
+    'Took on freelance web development projects.',
+    'Ran Guppy Pasundan, a guppy breeding business that sells online, and built its storefront (Next.js, Supabase).']),
   ],
   proj=[
    ('Undakan', 'in development', 'Tryout platform for the SKD CPNS exam: 110 questions on a 100-minute timer, explanations, passwordless sign-in, and an admin panel. Next.js 16, Payload CMS 3, PostgreSQL.'),
-   ('Guppy Pasundan', 'in development', 'Online storefront with catalogue, cart, and admin area. Next.js 16, Supabase.'),
-   ('Tryout Online', 'senam-otak.my.id', 'Practice site with tryout, quiz, and focus games. React, deployed to AWS through GitHub Actions.'),
-   ('Hospital recommendation system', 'rekomendasi.infinityfreeapp.com', 'Ranks hospitals for BPJS eye patients with the Weighted Product method. PHP, MySQL.'),
+   ('Teman Air', 'rivaldi12.netlify.app/temanair', 'Dependency-free landing page for a swimming school: offline support, SEO structured data, WhatsApp sign-up form.'),
+   ('Tryout Online', 'github.com/rivaldisyaputra/TRYOUT', 'Tryout app with randomized questions, a countdown timer, and a leaderboard. PHP, JavaScript.'),
   ],
   edu=[('Universitas Komputer Indonesia (UNIKOM)', "Bachelor's degree, Computer Systems", '2019 - 2023'),
        ('SMKN 4 Bandung', 'Computer and Network Engineering', '2016 - 2019')],
@@ -42,8 +41,9 @@ DATA = {
           ('Data', 'PostgreSQL, Prisma, MySQL, Redis, Supabase'),
           ('DevOps', 'Docker, Docker Compose, GitHub Actions (CI/CD), Linux, Nginx, Apache, Prometheus, Grafana'),
           ('Networking and security', 'TCP/IP, VLAN, VPN, firewall (iptables/nftables), MikroTik, Cisco, Fortinet, IDS/IPS'),
-          ('IT support', 'Hardware and software maintenance, CCTV, user training')],
-  cert=['Hackpoint Bootcamp 1, Hackpoint (2025)', 'Cybershield 2025, Hackpoint (2025)',
+          ('IT support', 'Hardware and software maintenance, CCTV, user training'),
+          ('Languages', 'Indonesian (native), English (intermediate)')],
+  cert=['Hackpoint Bootcamp 1 and Cybershield 2025, Hackpoint (2025)',
         'Security Operations Analyst, Fresh Graduate Academy, Digitalent (2024)', 'Talenta AI Indonesia (2024)',
         'Cisco Networking Academy course completions (2022): CyberOps Associate; CCNAv7 Switching, Routing, and Wireless Essentials; CCNAv7 Introduction to Networks; Cybersecurity Essentials'],
   org=['Head of the Leadership Organization Division, HIMA TEKKOM UNIKOM (2021/2022)',
@@ -53,28 +53,27 @@ DATA = {
   file='CV_Rivaldi_Syaputra_ID', lang='id', title='Full-stack Developer & IT Support', city='Bandung, Indonesia',
   h=dict(summary='Ringkasan', exp='Pengalaman Kerja', proj='Proyek', edu='Pendidikan', skills='Keahlian', cert='Sertifikasi', org='Organisasi'),
   summary='Full-stack developer dengan latar belakang jaringan dan IT support. Membangun dan memelihara backoffice ERP dan REST API '
-          '(Next.js, NestJS, Prisma, PostgreSQL) untuk perusahaan F&B multi-outlet, mencakup hak akses, inventori, dan laporan keuangan. '
+          '(Next.js, NestJS, Prisma, PostgreSQL) yang dipakai 300+ pengguna di 130+ outlet perusahaan F&B, mencakup hak akses, inventori, dan laporan keuangan. '
           'Terbiasa bekerja dari database sampai deployment: Linux, Docker, dan CI/CD.',
   exp=[
    ('Full-stack Developer', 'Exo Drinks', 'Jan 2026 - sekarang', [
-    'Membangun dan memelihara backoffice ERP perusahaan (Next.js 16, React 19, TypeScript) beserta REST API-nya (NestJS, Prisma, PostgreSQL) yang dipakai lintas outlet, dalam tim pengembang kecil.',
+    'Membangun dan memelihara backoffice ERP perusahaan (Next.js 16, React 19, TypeScript) beserta REST API-nya (NestJS, Prisma, PostgreSQL) yang dipakai 300+ pengguna di 130+ outlet, dalam tim pengembang kecil.',
     'Merancang hak akses berbasis peran sampai tingkat halaman dan aksi, di atas autentikasi JWT dengan refresh token.',
     'Mengembangkan modul inventori: stok outlet dan central kitchen, transfer stok, dan stock opname.',
-    'Membangun laporan P&L dan shrinkage dengan grafik dan ekspor Excel, didukung cache Redis dan cache warmer terjadwal.',
+    'Membangun laporan P&L dan shrinkage dengan grafik dan ekspor Excel, didukung cache Redis dan job terjadwal.',
     'Menerapkan audit log sehingga setiap perubahan data dapat ditelusuri ke pengguna dan waktunya.',
-    'Menulis migrasi database dan pengujian otomatis; sekitar 600 commit pada repositori backoffice dan API.']),
+    'Menulis migrasi database dan pengujian otomatis untuk API dan backoffice.']),
    ('IT Support', 'Exo Drinks', 'Sep 2025 - Des 2025', [
     'Memelihara hardware dan software perusahaan serta menangani kendala pengguna sehari-hari.',
-    'Memelihara sistem CCTV.',
-    'Melatih staf menggunakan aplikasi vendor.']),
-   ('Praktik Kerja Lapangan', 'Kejaksaan Negeri Kota Bandung', 'Okt 2018 - Des 2018', [
-    'Merawat komputer dan jaringan kantor serta mengerjakan entri data.']),
+    'Memelihara sistem CCTV dan melatih staf menggunakan aplikasi vendor.']),
+   ('Freelance Web Developer & Pemilik Usaha', 'Guppy Pasundan', '2023 - 2025', [
+    'Mengerjakan proyek pengembangan web secara freelance.',
+    'Menjalankan Guppy Pasundan, usaha budidaya guppy yang berjualan online, dan membangun toko online-nya (Next.js, Supabase).']),
   ],
   proj=[
    ('Undakan', 'dalam pengembangan', 'Platform tryout SKD CPNS: 110 soal dengan timer 100 menit, pembahasan, masuk tanpa kata sandi, dan panel admin. Next.js 16, Payload CMS 3, PostgreSQL.'),
-   ('Guppy Pasundan', 'dalam pengembangan', 'Toko online dengan katalog, keranjang, dan area admin. Next.js 16, Supabase.'),
-   ('Tryout Online', 'senam-otak.my.id', 'Situs latihan berisi tryout, kuis, dan permainan kecermatan. React, di-deploy ke AWS lewat GitHub Actions.'),
-   ('Sistem rekomendasi rumah sakit', 'rekomendasi.infinityfreeapp.com', 'Memeringkat rumah sakit untuk peserta BPJS penyakit mata dengan metode Weighted Product. PHP, MySQL.'),
+   ('Teman Air', 'rivaldi12.netlify.app/temanair', 'Landing page sekolah renang tanpa dependensi: dukungan offline, structured data SEO, formulir daftar ke WhatsApp.'),
+   ('Tryout Online', 'github.com/rivaldisyaputra/TRYOUT', 'Aplikasi tryout dengan soal acak, timer hitung mundur, dan papan peringkat. PHP, JavaScript.'),
   ],
   edu=[('Universitas Komputer Indonesia (UNIKOM)', 'S1 Sistem Komputer', '2019 - 2023'),
        ('SMKN 4 Bandung', 'Teknik Komputer dan Jaringan', '2016 - 2019')],
@@ -82,8 +81,9 @@ DATA = {
           ('Data', 'PostgreSQL, Prisma, MySQL, Redis, Supabase'),
           ('DevOps', 'Docker, Docker Compose, GitHub Actions (CI/CD), Linux, Nginx, Apache, Prometheus, Grafana'),
           ('Jaringan dan keamanan', 'TCP/IP, VLAN, VPN, firewall (iptables/nftables), MikroTik, Cisco, Fortinet, IDS/IPS'),
-          ('IT support', 'Pemeliharaan hardware dan software, CCTV, pelatihan pengguna')],
-  cert=['Hackpoint Bootcamp 1, Hackpoint (2025)', 'Cybershield 2025, Hackpoint (2025)',
+          ('IT support', 'Pemeliharaan hardware dan software, CCTV, pelatihan pengguna'),
+          ('Bahasa', 'Indonesia (penutur asli), Inggris (menengah)')],
+  cert=['Hackpoint Bootcamp 1 dan Cybershield 2025, Hackpoint (2025)',
         'Security Operations Analyst, Fresh Graduate Academy, Digitalent (2024)', 'Talenta AI Indonesia (2024)',
         'Penyelesaian kursus Cisco Networking Academy (2022): CyberOps Associate; CCNAv7 Switching, Routing, and Wireless Essentials; CCNAv7 Introduction to Networks; Cybersecurity Essentials'],
   org=['Kepala Divisi Organisasi Kepemimpinan, HIMA TEKKOM UNIKOM (2021/2022)',
@@ -98,7 +98,7 @@ CSS = '''
 body { margin: 0; font: 9.3pt/1.34 Arial, Helvetica, sans-serif; color: #111; }
 h1 { margin: 0; font-size: 19pt; letter-spacing: .2pt; }
 .role { margin: 1pt 0 3pt; font-size: 11pt; font-weight: bold; color: #1d4e89; }
-.contact { margin: 0; font-size: 8.3pt; color: #333; white-space: nowrap; } /* one line: a wrapped contact row pushes the CV onto a second page */
+.contact { margin: 0; font-size: 8.8pt; color: #333; }
 h2 { margin: 7pt 0 3pt; padding-bottom: 2pt; border-bottom: 1pt solid #1d4e89; font-size: 10pt; text-transform: uppercase; letter-spacing: .8pt; color: #1d4e89; }
 p { margin: 0; }
 .row { display: flex; justify-content: space-between; gap: 12pt; margin-top: 4pt; }

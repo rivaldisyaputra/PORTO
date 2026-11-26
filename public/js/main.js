@@ -146,7 +146,7 @@ if (!reducedMotion) {
             const end = +target.dataset.count, t0 = performance.now();
             const tick = (t) => {
                 const k = Math.min(1, (t - t0) / 1200);
-                target.textContent = Math.round(end * (1 - (1 - k) ** 3));
+                target.textContent = Math.round(end * (1 - (1 - k) ** 3)) + (target.dataset.suffix || '');
                 if (k < 1) requestAnimationFrame(tick);
             };
             requestAnimationFrame(tick);
@@ -233,8 +233,8 @@ const commands = {
     help: { text: 'Commands: about, skills, projects, experience, certs, contact, cv, clear' },
     about: { text: 'Full-stack Developer & IT Support, based in Bandung, Indonesia.', go: 'about' },
     skills: { text: 'Full-stack & ERP, AI prompting, DevOps & monitoring, networking, web, IT support.', go: 'skills' },
-    projects: { text: 'Ten projects: two internal ERP systems, four in progress or private, four live.', go: 'projects' },
-    experience: { text: 'Full-stack developer since 2026, IT support before that, UNIKOM (Computer Systems), SMKN 4 Bandung.', go: 'experience' },
+    projects: { text: 'Ten projects: an ERP backoffice and API used across 130+ outlets, plus eight web projects.', go: 'projects' },
+    experience: { text: 'Full-stack developer at Exo Drinks since 2026, IT support and freelance work before that, UNIKOM, SMKN 4 Bandung.', go: 'experience' },
     certs: { text: 'Eight certificates: Cisco Networking Academy, Hackpoint, Digitalent, Talenta AI.', go: 'certificates' },
     contact: { text: 'rivaldisyaputra029@gmail.com', go: 'contact' },
     cv: { text: 'Opening CV in a new tab.', open: CV },

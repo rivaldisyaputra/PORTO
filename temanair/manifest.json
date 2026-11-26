@@ -1,0 +1,21 @@
+{
+  "name": "Teman Air - Les Renang",
+  "short_name": "Teman Air",
+  "description": "Les renang untuk bayi, anak, remaja, dan dewasa dengan pelatih bersertifikat",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0284c7",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "img/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "sports", "health"],
+  "lang": "id",
+  "dir": "ltr"
+}
